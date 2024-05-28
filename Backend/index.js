@@ -28,7 +28,7 @@ app.get('/getMenu', getMenuData);
 //* POST for check empty table:
 app.post('/check-emptyTable', checkEmptyTable);
 app.post('/sendEmail', saveReservation);
-app.post('/order-online', orderOnlineMethod)
+app.post('/order-online', orderOnlineMethod);
 
 // menuDb.insertMany([
 //     {
