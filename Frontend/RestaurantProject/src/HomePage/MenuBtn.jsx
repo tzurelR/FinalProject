@@ -30,7 +30,7 @@ export default function MenuBtn() {
     setAnchorEl(null);
   }
 
-  const loginClock = () => {
+  const loginClick = () => {
     navigate('/login');
     setAnchorEl(null);
   }
@@ -58,7 +58,7 @@ export default function MenuBtn() {
       >
         <MenuItem onClick={tableReservationClick}>Table reservation <TableBarIcon /></MenuItem>
         <MenuItem onClick={orderOnlineClick}>Order online <DeliveryDiningIcon /></MenuItem>
-        <MenuItem onClick={handleClose}>Login <LoginIcon /></MenuItem>
+        <MenuItem onClick={loginClick}>Login <LoginIcon /></MenuItem>
       </Menu>
     </div>
   );
