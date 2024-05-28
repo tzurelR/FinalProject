@@ -12,6 +12,7 @@ import MenuBtn from './MenuBtn';
 import homePageImg from '../../public/images/homePageImg.jpeg';
 import '../App.css';
 
+
 export default function Title() {
 
   const [hiddenMenu, setHiddenMenu] = useState('hidden');
