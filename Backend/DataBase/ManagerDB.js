@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const admonSchema = new mongoose.Schema ({
+const managerSchema = new mongoose.Schema ({
     email: {
         type: String,
         required: true,
@@ -12,8 +12,8 @@ const admonSchema = new mongoose.Schema ({
         unique: true
     },
     
-}, {collection: 'Admin'});
+}, {collection: 'Manager'});
 
-const adminDb = mongoose.model('Admin', admonSchema);
+const managerDb = mongoose.model('Manager', managerSchema);
 
-export {adminDb};
+export {managerDb};
