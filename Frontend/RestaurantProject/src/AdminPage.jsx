@@ -30,7 +30,12 @@ const AdminPage = () => {
             },
             body: JSON.stringify(objToSend)
         });
-        console.log(response);
+        const res = await response.json();
+        if(response.status === 200) {
+            //! here need to navigate to the new page!
+        } else {
+            setIsActive('');
+        }
     }
 
     const handleChange = (event) => {
@@ -41,7 +46,6 @@ const AdminPage = () => {
     const signInClick = () => {
         if(regularExpCheckValidEmail.test(email) && password !== '') {
             setIsActive('hidden');
-            console.log('need to work :)');
         } else {
             setIsActive('');
         }
