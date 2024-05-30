@@ -17,6 +17,22 @@ const AdminPage = () => {
     const [otpActive, setOtpAvtive] = useState('hidden');
     const regularExpCheckValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+    const login = async() => {
+        signInClick();
+        const objToSend = {
+            email,
+            password
+        }
+        const response = await fetch('http://localhost:3000/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(objToSend)
+        });
+        console.log(response);
+    }
+
     const handleChange = (event) => {
         event.target.placeholder === 'Email*' ? setEmail(event.target.value) : '';
         event.target.placeholder === 'Password*' ? setPassword(event.target.value) : '';        
@@ -46,7 +62,7 @@ const AdminPage = () => {
         <Input placeholder="Password*" onChange={handleChange}/>
         </FormControl>
         </div>
-        <Button style={{marginTop: '20px'}} variant="contained" onClick={signInClick}>SIGN IN</Button>
+        <Button style={{marginTop: '20px'}} variant="contained" onClick={login}>SIGN IN</Button>
         <div>
             <p className={isActive} style={{color: '#FF2121'}}>Your Email or Password invalid</p>
         </div>

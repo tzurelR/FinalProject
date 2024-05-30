@@ -1,11 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
-import { tableDb } from './DataBase/tables.js';
-import { orderOnlineDb } from './DataBase/orderOnlineDB.js';
-import { menuDb } from './DataBase/MenuDB.js';
-import { ingredientDb } from './DataBase/IngredientsDB.js';
-import { adminDb } from './DataBase/ManagerDB.js';
+import { login } from './login.js';
+import {managerDb} from './DataBase/ManagerDB.js'
 import { orderOnlineMethod } from './orderRequests.js';
 import { checkEmptyTable, saveReservation} from './tableRequests.js';
 import { getMenuData } from './getMenuData.js';
@@ -30,7 +27,7 @@ app.get('/getMenu', getMenuData);
 app.post('/check-emptyTable', checkEmptyTable);
 app.post('/sendEmail', saveReservation);
 app.post('/order-online', orderOnlineMethod);
-app.post('/admin-login', login)
+app.post('/login', login);
 
 app.listen(port, () => {
     console.log("Server running on port 3000.")
