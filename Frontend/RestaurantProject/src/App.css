@@ -80,5 +80,19 @@
   background-color: rgb(226, 144, 37);
 }
 
+.otp-area {
+  width: 100%;
+  margin: 20px auto;
+  display: flex;
+  gap: 5px;
+
+  input {
+    width: 50px;
+    padding: 20px;
+    outline: none;
+    text-align: center;
+  }
+}
+
 
 
