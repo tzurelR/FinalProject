@@ -9,7 +9,7 @@ import Button from '@mui/material/Button';
 import Otp from './Otp.jsx';
 import './App.css'
 
-const AdminPage = () => {
+const Login = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -81,4 +81,4 @@ const AdminPage = () => {
     )
 }
 
-export {AdminPage}
+export {Login}
