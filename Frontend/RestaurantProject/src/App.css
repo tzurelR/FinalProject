@@ -94,10 +94,6 @@
   }
 }
 
-.managerPageDiv {
-  display: flex;
-  position: relative;
-}
 
 .buttonsManagerPage {
   display: flex;
