@@ -1,7 +1,7 @@
 
 const ManagerPage = () => {
     return (
-        <div>asd</div>
+        <div>create manger page branch</div>
     )
 }
 
