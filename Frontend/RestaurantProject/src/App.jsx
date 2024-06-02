@@ -5,6 +5,7 @@ import TableReservation from './OrderPage/TableReservation';
 import OrderOnline from './OrderPage/OrderOnline';
 import PayOnline from './OrderPage/PayOnline';
 import { Login } from './Login';
+import { ManagerPage } from './ManagerPage';
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
           <Route path='/order-online' element={<OrderOnline />} />
           <Route path='/order-online/payment' element={<PayOnline />} />
           <Route path='/login' element={<Login />} />
+          <Route path='/login/managerPage' element={<ManagerPage/>} />
         </Routes>
       </BrowserRouter>
         

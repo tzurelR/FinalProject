@@ -6,11 +6,13 @@ import Input from '@mui/joy/Input';
 import { useState } from 'react';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router-dom';
 import Otp from './Otp.jsx';
 import './App.css'
 
 const Login = () => {
 
+    const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isActive, setIsActive] = useState('hidden');
@@ -33,6 +35,7 @@ const Login = () => {
         const res = await response.json();
         if(response.status === 200) {
             //! here need to navigate to the new page!
+            navigate('/login/managerPage');
         } else {
             setIsActive('');
         }
