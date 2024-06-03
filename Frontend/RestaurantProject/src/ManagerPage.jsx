@@ -16,6 +16,7 @@ const ManagerPage = () => {
 
     const fetchOrders = async() => {
         try {
+        if(orderTableHidden === 'hidden') {
         setOrderTableHidden('');
         const response = await fetch('http://localhost:3000/fetchOrders', {
         method: 'GET',
@@ -25,6 +26,9 @@ const ManagerPage = () => {
         })
         const res = await response.json();
         setDbAnswerOrders(res);
+        } else {
+            setOrderTableHidden('hidden');
+        }
         } catch (err) {
             console.error('error from ManagerPage,jsx - fetchOrders method');
         }
