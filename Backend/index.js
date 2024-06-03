@@ -23,6 +23,8 @@ app.get('/order', (req, res) => {
 })
 app.get('/getMenu', getMenuData);
 
+app.get('/fetchOrders', getOrdersOnline);
+
 //* POST for check empty table:
 app.post('/check-emptyTable', checkEmptyTable);
 app.post('/sendEmail', saveReservation);
