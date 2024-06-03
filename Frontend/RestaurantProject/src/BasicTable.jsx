@@ -34,20 +34,20 @@ export default function BasicTable(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {props.propsToOrderTable.dbAnswerOrders.length !== 0 ? props.propsToOrderTable.dbAnswerOrders.map((item) => (
             <TableRow
-              key={row.name}
+              key={item.invite_id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {row.name}
+                {item.invite_id}
               </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell>
+              <TableCell align="right">HI Complete</TableCell>
+              <TableCell align="right">{item.dishes.map((dish) => <p>{dish.name} X {dish.count}</p>)}</TableCell>
+              <TableCell align="right">{item.cost}</TableCell>
+              <TableCell align="right">{item.email}</TableCell>
             </TableRow>
-          ))}
+          )) : null}
         </TableBody>
       </Table>
     </TableContainer>
