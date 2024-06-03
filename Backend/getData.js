@@ -1,9 +1,9 @@
 import { orderOnlineDb } from "./DataBase/orderOnlineDB.js"
+import { tableDb } from "./DataBase/tables.js";
 
 const getOrdersOnline = async(req, res) => {
     try {
         const dbAns = await orderOnlineDb.find({}, {'invite_id': 1, 'dishes': 1, 'typeOfOrder': 1, 'cost': 1, 'email': 1, '_id': 0});
-        if(dbAns.length === 0) throw new Error('error - find in dataBase in getOrdersOnline');
         res.send(dbAns);
     } catch (error) {
         res.json({message: error.message})
@@ -20,4 +20,32 @@ const deleteOrderByManager = async(req, res) => {
     }
 }
 
-export {getOrdersOnline, deleteOrderByManager}
+const getReservation = async(req, res) => {
+    try {
+        const dbAns = await tableDb.find({}, {'_id': 0, 'table_id': 1, 'chairNumber': 1, 'invitesList': 1});
+        const arrToSend = [];
+        if(dbAns.length !== 0) {
+            dbAns.forEach((item) => {
+                if(item.invitesList.length !== 0) {
+                    let obj;
+                    item.invitesList.forEach((invite) => {
+                        obj = {};
+                        obj = {
+                            table_id: item.table_id,
+                            chairNumber: item.chairNumber,
+                            email: invite.user_email,
+                            hour: invite.hour,
+                            date: invite.date
+                        };
+                        arrToSend.push(obj);
+                    })
+                }
+            })
+        }
+        res.send(arrToSend);
+    } catch (err) {
+        res.json({message: err.message});
+    }
+}
+
+export {getOrdersOnline, deleteOrderByManager, getReservation}
