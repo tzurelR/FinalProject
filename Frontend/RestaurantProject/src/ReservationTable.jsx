@@ -39,10 +39,10 @@ export default function ReservationTable(props) {
               <TableCell component="th" scope="row">
                 {item.table_id}
               </TableCell>
-              <TableCell align="right">{item.chairNumber}</TableCell>
-              <TableCell align="right">{item.email}</TableCell>
-              <TableCell align="right">{item.hour}</TableCell>
-              <TableCell align="right">{item.date}</TableCell>
+              <TableCell align="1right">{item.chairNumber}</TableCell>
+              <TableCell align="1right">{item.hour}</TableCell>
+              <TableCell align="1right">{item.date}</TableCell>
+              <TableCell align="1right">{item.email}</TableCell>
             </TableRow>
           )): null}
         </TableBody>
