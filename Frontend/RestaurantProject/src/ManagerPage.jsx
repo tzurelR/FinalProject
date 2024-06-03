@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import Button from '@mui/material/Button';
 import TableRestaurantIcon from '@mui/icons-material/TableRestaurant';
 import FastfoodIcon from '@mui/icons-material/Fastfood';
@@ -7,13 +8,39 @@ import SetMealIcon from '@mui/icons-material/SetMeal';
 import BasicTable from './BasicTable';
 
 const ManagerPage = () => {
+
+    //* GET ORDERS
+    const [dishes, setDishes] = useState('');
+    const [dishesCount, setDishesCount] = useState('');
+    const [typeOfOrder, setTypeOfOrder] = useState('');
+    const [price, setPrice] = useState('');
+    const [email, SetEmail] = useState('');
+
+    const fetchOrders = async() => {
+        try {
+        const response = await fetch('http://localhost:3000/fetchOrders', {
+        method: 'GET',
+        headers: {
+       'Content-Type': 'application/json'
+            }
+        })
+        const res = await response.json();
+        console.log(res);
+        } catch (err) {
+            console.error('error from ManagerPage,jsx - fetchOrders method');
+        }
+    }
+
+    const propsToOrderTable = {
+        tableCell: ['ID', 'Dish X count', 'type of order', 'price', 'email'],
+    }
+
+    //* GET TABLE RESERVATION
     
-
-
     return (
         <div>
             <div className='buttonsManagerPage'>
-            <Button style={{fontSize: '1.1em'}} className='side-button' variant="contained" color="secondary">
+            <Button style={{fontSize: '1.1em'}} className='side-button' variant="contained" color="secondary" >
             Get Orders <FastfoodIcon/>
             </Button>
             <Button style={{marginTop: '40px', fontSize: '1.1em'}} className='side-button' variant="contained" color="secondary">
@@ -26,7 +53,7 @@ const ManagerPage = () => {
             Update Ingredients <SetMealIcon/>
             </Button>
             </div>
-            <BasicTable/>
+            <BasicTable className='ordersTable' propsToOrderTable={propsToOrderTable}/>
         </div>
     )
 }

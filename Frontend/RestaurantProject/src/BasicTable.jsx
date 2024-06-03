@@ -19,17 +19,18 @@ const rows = [
   createData('Gingerbread', 356, 16.0, 49, 3.9),
 ];
 
-export default function BasicTable() {
+export default function BasicTable(props) {
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <Table sx={{ minWidth: 650 }} aria-label="a dense table">
         <TableHead>
           <TableRow>
-            <TableCell>Dessert (100g serving)</TableCell>
-            <TableCell align="right">Calories</TableCell>
-            <TableCell align="right">Fat&nbsp;(g)</TableCell>
-            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell>
+            <TableCell style={{fontWeight: 'bold'}}>{props.propsToOrderTable.tableCell[0]}</TableCell>
+            {props.propsToOrderTable.tableCell.map((value, index) => (
+                (index !== 0) ?
+                    <TableCell style={{fontWeight: 'bold'}} align="right">{value}</TableCell> : null
+                
+            ))}
           </TableRow>
         </TableHead>
         <TableBody>
