@@ -18,35 +18,33 @@ const rows = [
   createData('Cupcake', 305, 3.7, 67, 4.3),
   createData('Gingerbread', 356, 16.0, 49, 3.9),
 ];
-
-export default function ReservationTable() {
+export default function ReservationTable(props) {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Dessert (100g serving)</TableCell>
-            <TableCell align="right">Calories</TableCell>
-            <TableCell align="right">Fat&nbsp;(g)</TableCell>
-            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell>
+            <TableCell style={{fontWeight: 'bold'}}>{props.propsToReservationTable.tableCell[0]}</TableCell>
+            {props.propsToReservationTable.tableCell.map((cellName, index) => (
+                (index !== 0) ? <TableCell style={{fontWeight: 'bold'}}>{cellName}</TableCell> : null
+            ))}
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {props.propsToReservationTable.tableContent.length !== 0 ? props.propsToReservationTable.tableContent.map((item, index) => (
             <TableRow
-              key={row.name}
+              key={index}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {row.name}
+                {item.table_id}
               </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell>
+              <TableCell align="right">{item.chairNumber}</TableCell>
+              <TableCell align="right">{item.email}</TableCell>
+              <TableCell align="right">{item.hour}</TableCell>
+              <TableCell align="right">{item.date}</TableCell>
             </TableRow>
-          ))}
+          )): null}
         </TableBody>
       </Table>
     </TableContainer>
