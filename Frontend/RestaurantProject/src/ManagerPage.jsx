@@ -31,7 +31,7 @@ const ManagerPage = () => {
             setOrderTableHidden('hidden');
         }
         } catch (err) {
-            console.error('error from ManagerPage,jsx - fetchOrders method');
+            console.error('error from ManagerPage.jsx - fetchOrders method');
         }
     }
 
@@ -41,6 +41,22 @@ const ManagerPage = () => {
         fetchOrders
     }
 
+    //* GET RESERVATIONS
+    const fetchReservations = async() => {
+        try {
+            const response = await fetch('http://localhost:3000/fetchReservation', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            const res = await response.json();
+            console.log(res);
+        } catch {
+            console.error('error from ManagerPage.jsx - fetchReservation method');
+        }
+    }
+
     
     return (
         <div>
@@ -48,7 +64,7 @@ const ManagerPage = () => {
             <Button style={{fontSize: '1.1em'}} className='side-button' variant="contained" color="secondary" onClick={fetchOrders}>
             Get Orders <FastfoodIcon/>
             </Button>
-            <Button style={{marginTop: '40px', fontSize: '1.1em'}} className='side-button' variant="contained" color="secondary">
+            <Button style={{marginTop: '40px', fontSize: '1.1em'}} className='side-button' variant="contained" color="secondary" onClick={fetchReservations}>
             Get Table Reservations <TableRestaurantIcon/>
             </Button>
             <Button style={{marginTop: '40px', fontSize: '1.1em'}} className='side-button' variant="contained" color="secondary">
