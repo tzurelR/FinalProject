@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -6,9 +7,13 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
+import Button from '@mui/material/Button';
 
 export default function OrdersTable(props) {
+
   return (
+    <div>
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="a dense table">
         <TableHead>
@@ -30,14 +35,16 @@ export default function OrdersTable(props) {
               <TableCell component="th" scope="row">
                 {item.invite_id}
               </TableCell>
-              <TableCell align="right">HI Complete</TableCell>
               <TableCell align="right">{item.dishes.map((dish) => <p>{dish.name} X {dish.count}</p>)}</TableCell>
+              <TableCell align="right">{item.typeOfOrder}</TableCell>
               <TableCell align="right">{item.cost}</TableCell>
               <TableCell align="right">{item.email}</TableCell>
+              <TableCell align="right"><Button variant="contained" color="error"><DeleteRoundedIcon/></Button></TableCell>
             </TableRow>
           )) : null}
         </TableBody>
       </Table>
     </TableContainer>
+    </div>
   );
 }
