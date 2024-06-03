@@ -16,6 +16,7 @@ const ManagerPage = () => {
     const [orderTableHidden, setOrderTableHidden] = useState('hidden');
 
     const fetchOrders = async(param) => {
+        setReservationTableHidden('hidden');
         try {
         if(orderTableHidden === 'hidden' || param === 'fromOrderTable.jsx') {
         setOrderTableHidden('');
@@ -42,8 +43,14 @@ const ManagerPage = () => {
     }
 
     //* GET RESERVATIONS
+    const [reservationArr, setReservationArr] = useState('');
+    const [reservationTableHidden, setReservationTableHidden] = useState('hidden');
+
     const fetchReservations = async() => {
+        setOrderTableHidden('hidden');
         try {
+            if(reservationTableHidden === 'hidden') {
+            setReservationTableHidden('');
             const response = await fetch('http://localhost:3000/fetchReservation', {
                 method: 'GET',
                 headers: {
@@ -51,12 +58,18 @@ const ManagerPage = () => {
                 }
             })
             const res = await response.json();
-            console.log(res);
+            setReservationArr(res);
+            } else {
+                setReservationTableHidden('hidden');
+            }
         } catch {
             console.error('error from ManagerPage.jsx - fetchReservation method');
         }
     }
-
+    const propsToReservationTable = {
+        tableCell: ['table id', 'chairs number', 'hour', 'date', 'email'],
+        tableContent: reservationArr
+    }
     
     return (
         <div>
@@ -75,7 +88,7 @@ const ManagerPage = () => {
             </Button>
             </div>
             {orderTableHidden === 'hidden' ? null : <OrdersTable className='orderTable' propsToOrderTable={propsToOrderTable}/>}
-            <ReservationTable/>
+            {reservationTableHidden === 'hidden' ? null : <ReservationTable propsToReservationTable={propsToReservationTable}/>}
         </div>
     )
 }
