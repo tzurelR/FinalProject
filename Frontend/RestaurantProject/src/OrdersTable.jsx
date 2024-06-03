@@ -9,8 +9,27 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function OrdersTable(props) {
+
+  const deleteOrder = async(event) => {
+    const inviteID = event.target.className * 1;
+    const objToSend = {
+      inviteID
+    }
+    const response = await fetch('http://localhost:3000/deleteOrder', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(objToSend)
+    });
+    const res = await response.json();
+    console.log(res);
+    props.propsToOrderTable.fetchOrders('fromOrderTable.jsx');
+  }
 
   return (
     <div>
@@ -27,7 +46,7 @@ export default function OrdersTable(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {props.propsToOrderTable.dbAnswerOrders.length !== 0 ? props.propsToOrderTable.dbAnswerOrders.map((item) => (
+          {props.propsToOrderTable.dbAnswerOrders.length !== 0 ? props.propsToOrderTable.dbAnswerOrders.map((item, index) => (
             <TableRow
               key={item.invite_id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -39,8 +58,8 @@ export default function OrdersTable(props) {
               <TableCell align="right">{item.typeOfOrder}</TableCell>
               <TableCell align="right">{item.cost}</TableCell>
               <TableCell align="right">{item.email}</TableCell>
-              <TableCell align="right"><Button variant="contained" color="error"><DeleteRoundedIcon/></Button></TableCell>
-            </TableRow>
+              <TableCell align="right"><button style={{backgroundColor: 'red'}} className={`${item.invite_id}`} onClick={deleteOrder}>delete</button></TableCell>
+              </TableRow>
           )) : null}
         </TableBody>
       </Table>

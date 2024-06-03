@@ -14,9 +14,9 @@ const ManagerPage = () => {
     const [dbAnswerOrders, setDbAnswerOrders] = useState('');
     const [orderTableHidden, setOrderTableHidden] = useState('hidden');
 
-    const fetchOrders = async() => {
+    const fetchOrders = async(param) => {
         try {
-        if(orderTableHidden === 'hidden') {
+        if(orderTableHidden === 'hidden' || param === 'fromOrderTable.jsx') {
         setOrderTableHidden('');
         const response = await fetch('http://localhost:3000/fetchOrders', {
         method: 'GET',
@@ -36,10 +36,10 @@ const ManagerPage = () => {
 
     const propsToOrderTable = {
         tableCell: ['ID', 'Dish X count', 'type of order', 'price', 'email'],
-        dbAnswerOrders
+        dbAnswerOrders,
+        fetchOrders
     }
 
-    //* GET TABLE RESERVATION
     
     return (
         <div>
