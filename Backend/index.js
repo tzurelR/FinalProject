@@ -6,6 +6,7 @@ import {managerDb} from './DataBase/ManagerDB.js'
 import { orderOnlineMethod } from './orderRequests.js';
 import { checkEmptyTable, saveReservation} from './tableRequests.js';
 import { getMenuData } from './getMenuData.js';
+import { getOrdersOnline } from './getData.js';
 const userNameDB = 'tzurel150';
 const passwordDB = 'JQGdzI57qA9hOrYJ';
 const DB_URL = `mongodb+srv://tzurel150:${passwordDB}@finalproject.dtuuckj.mongodb.net/?retryWrites=true&w=majority&appName=FinalProject`;
