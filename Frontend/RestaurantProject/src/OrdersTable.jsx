@@ -54,11 +54,11 @@ export default function OrdersTable(props) {
               <TableCell component="th" scope="row">
                 {item.invite_id}
               </TableCell>
-              <TableCell align="right">{item.dishes.map((dish) => <p>{dish.name} X {dish.count}</p>)}</TableCell>
-              <TableCell align="right">{item.typeOfOrder}</TableCell>
-              <TableCell align="right">{item.cost}</TableCell>
-              <TableCell align="right">{item.email}</TableCell>
-              <TableCell align="right"><button style={{backgroundColor: 'red'}} className={`${item.invite_id}`} onClick={deleteOrder}>delete</button></TableCell>
+              <TableCell align="1right">{item.dishes.map((dish) => <p>{dish.name} X {dish.count}</p>)}</TableCell>
+              <TableCell align="1right">{item.typeOfOrder}</TableCell>
+              <TableCell align="1right">{item.cost}</TableCell>
+              <TableCell align="1right">{item.email}</TableCell>
+              <TableCell align="1right"><button style={{backgroundColor: 'red'}} className={`${item.invite_id}`} onClick={deleteOrder}>delete</button></TableCell>
               </TableRow>
           )) : null}
         </TableBody>
