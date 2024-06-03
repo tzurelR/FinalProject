@@ -5,7 +5,7 @@ import TableRestaurantIcon from '@mui/icons-material/TableRestaurant';
 import FastfoodIcon from '@mui/icons-material/Fastfood';
 import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
 import SetMealIcon from '@mui/icons-material/SetMeal';
-import BasicTable from './BasicTable';
+import OrdersTable from './OrdersTable';
 import './App.css'
 
 const ManagerPage = () => {
@@ -53,7 +53,7 @@ const ManagerPage = () => {
             Update Ingredients <SetMealIcon/>
             </Button>
             </div>
-            {orderTableHidden === 'hidden' ? null : <BasicTable className='orderTable' propsToOrderTable={propsToOrderTable}/>}
+            {orderTableHidden === 'hidden' ? null : <OrdersTable className='orderTable' propsToOrderTable={propsToOrderTable}/>}
         </div>
     )
 }
