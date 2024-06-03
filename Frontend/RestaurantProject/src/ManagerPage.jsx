@@ -4,7 +4,7 @@ import TableRestaurantIcon from '@mui/icons-material/TableRestaurant';
 import FastfoodIcon from '@mui/icons-material/Fastfood';
 import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
 import SetMealIcon from '@mui/icons-material/SetMeal';
-import Paper from '@mui/material/Paper';
+import BasicTable from './BasicTable';
 
 const ManagerPage = () => {
     
@@ -26,7 +26,7 @@ const ManagerPage = () => {
             Update Ingredients <SetMealIcon/>
             </Button>
             </div>
-            <Paper elevation={0}>Im Paper asdasdasdasgdfalskdjfhlkjabsd<br/> asdasd<br/> asdasd<br/> asdasd<br/> asdasd</Paper>
+            <BasicTable/>
         </div>
     )
 }
