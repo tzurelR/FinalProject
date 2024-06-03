@@ -10,4 +10,14 @@ const getOrdersOnline = async(req, res) => {
     }
 }
 
-export {getOrdersOnline}
+const deleteOrderByManager = async(req, res) => {
+    try {
+        const deleteID = req.body.inviteID;
+        await orderOnlineDb.findOneAndDelete({'invite_id': deleteID});
+        res.json({message: `order ${deleteID} deleted`})
+    } catch (error) {
+        res.json({message: error.message});
+    }
+}
+
+export {getOrdersOnline, deleteOrderByManager}
