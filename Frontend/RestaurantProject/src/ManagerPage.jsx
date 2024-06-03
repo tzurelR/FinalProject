@@ -6,18 +6,17 @@ import FastfoodIcon from '@mui/icons-material/Fastfood';
 import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
 import SetMealIcon from '@mui/icons-material/SetMeal';
 import BasicTable from './BasicTable';
+import './App.css'
 
 const ManagerPage = () => {
 
     //* GET ORDERS
-    const [dishes, setDishes] = useState('');
-    const [dishesCount, setDishesCount] = useState('');
-    const [typeOfOrder, setTypeOfOrder] = useState('');
-    const [price, setPrice] = useState('');
-    const [email, SetEmail] = useState('');
+    const [dbAnswerOrders, setDbAnswerOrders] = useState('');
+    const [orderTableHidden, setOrderTableHidden] = useState('hidden');
 
     const fetchOrders = async() => {
         try {
+        setOrderTableHidden('');
         const response = await fetch('http://localhost:3000/fetchOrders', {
         method: 'GET',
         headers: {
@@ -25,7 +24,7 @@ const ManagerPage = () => {
             }
         })
         const res = await response.json();
-        console.log(res);
+        setDbAnswerOrders(res);
         } catch (err) {
             console.error('error from ManagerPage,jsx - fetchOrders method');
         }
@@ -33,6 +32,7 @@ const ManagerPage = () => {
 
     const propsToOrderTable = {
         tableCell: ['ID', 'Dish X count', 'type of order', 'price', 'email'],
+        dbAnswerOrders
     }
 
     //* GET TABLE RESERVATION
@@ -40,7 +40,7 @@ const ManagerPage = () => {
     return (
         <div>
             <div className='buttonsManagerPage'>
-            <Button style={{fontSize: '1.1em'}} className='side-button' variant="contained" color="secondary" >
+            <Button style={{fontSize: '1.1em'}} className='side-button' variant="contained" color="secondary" onClick={fetchOrders}>
             Get Orders <FastfoodIcon/>
             </Button>
             <Button style={{marginTop: '40px', fontSize: '1.1em'}} className='side-button' variant="contained" color="secondary">
@@ -53,7 +53,7 @@ const ManagerPage = () => {
             Update Ingredients <SetMealIcon/>
             </Button>
             </div>
-            <BasicTable className='ordersTable' propsToOrderTable={propsToOrderTable}/>
+            {orderTableHidden === 'hidden' ? null : <BasicTable className='orderTable' propsToOrderTable={propsToOrderTable}/>}
         </div>
     )
 }
