@@ -59,4 +59,4 @@ const getMenu = async(req, res) => {
 
 }
 
-export {getOrdersOnline, deleteOrderByManager, getReservation}
+export {getOrdersOnline, deleteOrderByManager, getReservation, getMenu}
