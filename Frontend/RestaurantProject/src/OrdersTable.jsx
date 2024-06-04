@@ -12,6 +12,7 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 
+
 export default function OrdersTable(props) {
 
   const deleteOrder = async(event) => {
@@ -35,7 +36,7 @@ export default function OrdersTable(props) {
     <div>
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="a dense table">
-        <TableHead>
+        <TableHead style={{backgroundColor: '#BCF9FF'}}>
           <TableRow>
             <TableCell style={{fontWeight: 'bold'}}>{props.propsToOrderTable.tableCell[0]}</TableCell>
             {props.propsToOrderTable.tableCell.map((value, index) => (
