@@ -23,30 +23,27 @@ export default function MenuTable(props) {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
+        <TableHead style={{backgroundColor: 'yellow'}}>
           <TableRow>
-            <TableCell>Dessert (100g serving)</TableCell>
-            <TableCell align="right">Calories</TableCell>
-            <TableCell align="right">Fat&nbsp;(g)</TableCell>
-            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell>
+            <TableCell style={{fontWeight: 'bold'}}>{props.propsToMenuTable.tableCell[0]}</TableCell>
+            {props.propsToMenuTable.tableCell.map((item, index) => (index !== 0 ? 
+               <TableCell style={{fontWeight: 'bold'}}>{item}</TableCell> : null 
+            ))}
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {props.propsToMenuTable.menu.length !== 0 ? props.propsToMenuTable.menu.map((item) => (
             <TableRow
-              key={row.name}
+              key={item.dishName}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {row.name}
+                {item.dishName}
               </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell>
+              <TableCell align="1right">{item.cost}</TableCell>
+              <TableCell align="1right">{item.ingredients.map((ingredient) => (<p>{ingredient.ingredientName} X {ingredient.ingredientAmount}</p>))}</TableCell>
             </TableRow>
-          ))}
+          )) : null}
         </TableBody>
       </Table>
     </TableContainer>

@@ -38,7 +38,7 @@ const ManagerPage = () => {
     }
 
     const propsToOrderTable = {
-        tableCell: ['ID', 'Dish X count', 'type of order', 'price', 'email'],
+        tableCell: ['ID', 'Dish X Count', 'Type Of Order', 'Price', 'EMAIL'],
         dbAnswerOrders,
         fetchOrders
     }
@@ -68,14 +68,16 @@ const ManagerPage = () => {
         }
     }
     const propsToReservationTable = {
-        tableCell: ['table id', 'chairs number', 'hour', 'date', 'email'],
+        tableCell: ['Table ID', 'Chairs Number', 'Hour', 'Date', 'EMAIL'],
         tableContent: reservationArr
     }
 
     //* GET MENU
+    const [menu, setMenu] = useState('');
+
     const fetchMenu = async() => {
         try {
-            const response = await fetch('http://localhost:3000/fetchReservation', {
+            const response = await fetch('http://localhost:3000/fetchMenu', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -83,9 +85,14 @@ const ManagerPage = () => {
             })
             const res = await response.json();
             console.log(res);
+            setMenu(res);
         } catch {
             console.error('error from ManagerPage.jsx - fetchMenu method');
         }
+    }
+    const propsToMenuTable = {
+        tableCell: ['Dish Name', 'Price', 'Ingredients'],
+        menu
     }
     
     return (
@@ -97,7 +104,7 @@ const ManagerPage = () => {
             <Button style={{marginTop: '40px', fontSize: '1.1em'}} className='side-button' variant="contained" color="secondary" onClick={fetchReservations}>
             Get Table Reservations <TableRestaurantIcon/>
             </Button>
-            <Button style={{marginTop: '40px', fontSize: '1.1em'}} className='side-button' variant="contained" color="secondary">
+            <Button style={{marginTop: '40px', fontSize: '1.1em'}} className='side-button' variant="contained" color="secondary" onClick={fetchMenu}>
             Change Menu <RestaurantMenuIcon/>
             </Button>
             <Button style={{marginTop: '40px', fontSize: '1.1em'}} className='side-button' variant="contained" color="secondary">
@@ -106,7 +113,7 @@ const ManagerPage = () => {
             </div>
             {orderTableHidden === 'hidden' ? null : <OrdersTable className='orderTable' propsToOrderTable={propsToOrderTable}/>}
             {reservationTableHidden === 'hidden' ? null : <ReservationTable propsToReservationTable={propsToReservationTable}/>}
-            <MenuTable/>
+            <MenuTable propsToMenuTable={propsToMenuTable}/>
         </div>
     )
 }
