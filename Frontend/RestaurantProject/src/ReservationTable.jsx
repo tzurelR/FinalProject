@@ -22,7 +22,7 @@ export default function ReservationTable(props) {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
+        <TableHead style={{backgroundColor: '#BCF9FF'}}>
           <TableRow>
             <TableCell style={{fontWeight: 'bold'}}>{props.propsToReservationTable.tableCell[0]}</TableCell>
             {props.propsToReservationTable.tableCell.map((cellName, index) => (
