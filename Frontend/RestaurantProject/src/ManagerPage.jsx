@@ -18,6 +18,8 @@ const ManagerPage = () => {
 
     const fetchOrders = async(param) => {
         setReservationTableHidden('hidden');
+        setMenuTableHidden('hidden');
+
         try {
         if(orderTableHidden === 'hidden' || param === 'fromOrderTable.jsx') {
         setOrderTableHidden('');
@@ -49,6 +51,8 @@ const ManagerPage = () => {
 
     const fetchReservations = async() => {
         setOrderTableHidden('hidden');
+        setMenuTableHidden('hidden');
+
         try {
             if(reservationTableHidden === 'hidden') {
             setReservationTableHidden('');
@@ -74,9 +78,16 @@ const ManagerPage = () => {
 
     //* GET MENU
     const [menu, setMenu] = useState('');
+    const [menuTableHidden, setMenuTableHidden] = useState('hidden');
+    const [inputsArr, setInputsArr] = useState([]);
 
     const fetchMenu = async() => {
+        setReservationTableHidden('hidden');
+        setOrderTableHidden('hidden');
+
         try {
+            if(menuTableHidden === 'hidden') {
+            setMenuTableHidden('');
             const response = await fetch('http://localhost:3000/fetchMenu', {
                 method: 'GET',
                 headers: {
@@ -84,15 +95,22 @@ const ManagerPage = () => {
                 }
             })
             const res = await response.json();
-            console.log(res);
             setMenu(res);
+            const temp = [];
+            res.map((item) => temp.push([item.dishName, item.cost, '', '']));
+            setInputsArr(temp)
+            } else {
+                setMenuTableHidden('hidden');
+            }
         } catch {
             console.error('error from ManagerPage.jsx - fetchMenu method');
         }
     }
     const propsToMenuTable = {
         tableCell: ['Dish Name', 'Price', 'Ingredients'],
-        menu
+        menu,
+        inputsArr,
+        fetchMenu
     }
     
     return (
@@ -113,7 +131,7 @@ const ManagerPage = () => {
             </div>
             {orderTableHidden === 'hidden' ? null : <OrdersTable className='orderTable' propsToOrderTable={propsToOrderTable}/>}
             {reservationTableHidden === 'hidden' ? null : <ReservationTable propsToReservationTable={propsToReservationTable}/>}
-            <MenuTable propsToMenuTable={propsToMenuTable}/>
+            {menuTableHidden === 'hidden' ? null : <MenuTable propsToMenuTable={propsToMenuTable}/>}
         </div>
     )
 }

@@ -59,4 +59,14 @@ const getMenu = async(req, res) => {
 
 }
 
-export {getOrdersOnline, deleteOrderByManager, getReservation, getMenu}
+const deleteDish = async(req, res) => {
+    try{
+        const dishToDelete = req.body.dishToDelete;
+        const dbAns = await menuDb.findOneAndDelete({'dishName': dishToDelete});
+        res.json({message: dbAns});
+    } catch (error) {
+        res.json({message: error.message});
+    }
+}
+
+export {getOrdersOnline, deleteOrderByManager, getReservation, getMenu, deleteDish}
