@@ -7,6 +7,7 @@ import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
 import SetMealIcon from '@mui/icons-material/SetMeal';
 import OrdersTable from './OrdersTable';
 import ReservationTable from './ReservationTable';
+import MenuTable from './MenuTable';
 import './App.css'
 
 const ManagerPage = () => {
@@ -89,6 +90,7 @@ const ManagerPage = () => {
             </div>
             {orderTableHidden === 'hidden' ? null : <OrdersTable className='orderTable' propsToOrderTable={propsToOrderTable}/>}
             {reservationTableHidden === 'hidden' ? null : <ReservationTable propsToReservationTable={propsToReservationTable}/>}
+            <MenuTable/>
         </div>
     )
 }
