@@ -14,6 +14,7 @@ export default function MenuTable(props) {
     
     const [dishNameChange, setDishNameChange] = useState('');
     const [priceChange, setPriceChange] = useState('');
+    const [placeholderChange, setPlaceholderChange] = useState('');
 
     const handleInputChange = (event) => {
         console.log(event.target.placeholder);
@@ -23,6 +24,22 @@ export default function MenuTable(props) {
             setPriceChange(event.target.value);
         
         }
+    }
+
+    const deleteDish = async(event) => {
+        console.log(event.target.className);
+        const objToSend = {
+            dishToDelete: event.target.class,
+        }
+        const response = await fetch('http://localhost:3000/deleteDish', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(objToSend)
+        });
+        const res = await response.json();
+        console.log(res);
     }
 
     return (
@@ -49,8 +66,8 @@ export default function MenuTable(props) {
               <TableCell align="1right"><input className='priceInput' onChange={handleInputChange} type='text' placeholder={`${item.cost}`} style={{width: '20px', backgroundColor: 'white', color: 'black', border: '1px solid #ccc', }}/></TableCell>
               <TableCell align="1right">{item.ingredients.map((ingredient) => (<p>{ingredient.ingredientName} X {ingredient.ingredientAmount}</p>))}</TableCell>
               <TableCell align="1right">
-              <button style={{backgroundColor: '#FFBD06', marginTop: '20px'}} className={`${item.invite_id}`}>Change</button>
-              <button style={{backgroundColor: 'red', marginLeft: '20px'}} className={`${item.invite_id}`}>delete</button>
+              <button style={{backgroundColor: '#FFBD06', marginTop: '20px'}} className={`${item.dishName}`}>Change</button>
+              <button onClick={deleteDish} style={{backgroundColor: 'red', marginLeft: '20px'}} className={`${item.dishName}`}>delete</button>
               {index + 1 === props.propsToMenuTable.menu.length ? <button style={{backgroundColor: '#4BCB00', marginLeft: '20px'}} className={`${item.invite_id}`}>Add</button> : null}
               </TableCell>
             </TableRow>
