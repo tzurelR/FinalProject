@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -14,22 +14,26 @@ export default function MenuTable(props) {
     
     const [dishNameChange, setDishNameChange] = useState('');
     const [priceChange, setPriceChange] = useState('');
-    const [placeholderChange, setPlaceholderChange] = useState('');
-
+    console.log(props.propsToMenuTable.inputsArr);
     const handleInputChange = (event) => {
-        console.log(event.target.placeholder);
         if(event.target.className === 'dishInput') {
             setDishNameChange(event.target.value);
         } else if (event.target.className === 'priceInput') {
             setPriceChange(event.target.value);
-        
         }
     }
 
+    const changeDish = async(event) => {
+        //! check dish name
+        //! check price is number
+        //! popup if you need alert!!!
+
+    }
+
     const deleteDish = async(event) => {
-        console.log(event.target.className);
+        try {
         const objToSend = {
-            dishToDelete: event.target.class,
+            dishToDelete: event.target.className
         }
         const response = await fetch('http://localhost:3000/deleteDish', {
             method: 'POST',
@@ -38,8 +42,11 @@ export default function MenuTable(props) {
             },
             body: JSON.stringify(objToSend)
         });
-        const res = await response.json();
-        console.log(res);
+        
+        props.propsToMenuTable.fetchMenu();
+        } catch (error) {
+            console.error('error from MenuTable.jsx - deleteDish');
+        }
     }
 
     return (
@@ -63,15 +70,22 @@ export default function MenuTable(props) {
               <TableCell component="th" scope="row">
                 <input className='dishInput' onChange={handleInputChange} type='text' placeholder={`${item.dishName}`} style={{backgroundColor: 'white', color: 'black', border: '1px solid #ccc', }}/>
               </TableCell>
-              <TableCell align="1right"><input className='priceInput' onChange={handleInputChange} type='text' placeholder={`${item.cost}`} style={{width: '20px', backgroundColor: 'white', color: 'black', border: '1px solid #ccc', }}/></TableCell>
+
+              <TableCell align="1right"><input className='priceInput' onChange={handleInputChange} type='text' placeholder={item.cost} style={{width: '20px', backgroundColor: 'white', color: 'black', border: '1px solid #ccc', }}/></TableCell>
+
               <TableCell align="1right">{item.ingredients.map((ingredient) => (<p>{ingredient.ingredientName} X {ingredient.ingredientAmount}</p>))}</TableCell>
+
               <TableCell align="1right">
-              <button style={{backgroundColor: '#FFBD06', marginTop: '20px'}} className={`${item.dishName}`}>Change</button>
+
+              <button onClick={changeDish} style={{backgroundColor: '#FFBD06', marginTop: '20px'}} className={item.dishName}>Change</button>
+
               <button onClick={deleteDish} style={{backgroundColor: 'red', marginLeft: '20px'}} className={`${item.dishName}`}>delete</button>
-              {index + 1 === props.propsToMenuTable.menu.length ? <button style={{backgroundColor: '#4BCB00', marginLeft: '20px'}} className={`${item.invite_id}`}>Add</button> : null}
+
+              {index + 1 === props.propsToMenuTable.menu.length ? <button style={{backgroundColor: '#4BCB00', marginLeft: '20px'}} className={item.invite_id}>Add</button> : null}
               </TableCell>
             </TableRow>
           )) : null}
+
         </TableBody>
       </Table>
     </TableContainer>
