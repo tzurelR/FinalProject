@@ -1,5 +1,6 @@
 import { orderOnlineDb } from "./DataBase/orderOnlineDB.js"
 import { tableDb } from "./DataBase/tables.js";
+import { menuDb } from "./DataBase/MenuDB.js";
 
 const getOrdersOnline = async(req, res) => {
     try {
@@ -46,6 +47,16 @@ const getReservation = async(req, res) => {
     } catch (err) {
         res.json({message: err.message});
     }
+}
+
+const getMenu = async(req, res) => {
+    try {
+        const dbAns = await menuDb.find({}, {'_id': 0, 'ingredients._id': 0, 'dish_id': 0});
+        res.send(dbAns)
+    } catch (error) {
+        res.json({message: error.message});
+    }
+
 }
 
 export {getOrdersOnline, deleteOrderByManager, getReservation}

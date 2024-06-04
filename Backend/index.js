@@ -6,7 +6,7 @@ import {managerDb} from './DataBase/ManagerDB.js'
 import { orderOnlineMethod } from './orderRequests.js';
 import { checkEmptyTable, saveReservation} from './tableRequests.js';
 import { getMenuData } from './getMenuData.js';
-import { getOrdersOnline, deleteOrderByManager, getReservation } from './getData.js';
+import { getOrdersOnline, deleteOrderByManager, getReservation, getMenu } from './getData.js';
 const userNameDB = 'tzurel150';
 const passwordDB = 'JQGdzI57qA9hOrYJ';
 const DB_URL = `mongodb+srv://tzurel150:${passwordDB}@finalproject.dtuuckj.mongodb.net/?retryWrites=true&w=majority&appName=FinalProject`;
@@ -26,7 +26,8 @@ app.get('/getMenu', getMenuData);
 
 //* requests for Manager:
 app.get('/fetchOrders', getOrdersOnline);
-app.get('/fetchReservation', getReservation)
+app.get('/fetchReservation', getReservation);
+app.get('/fetchMenu', getMenu);
 
 //* POST for check empty table:
 app.post('/check-emptyTable', checkEmptyTable);

@@ -71,6 +71,22 @@ const ManagerPage = () => {
         tableCell: ['table id', 'chairs number', 'hour', 'date', 'email'],
         tableContent: reservationArr
     }
+
+    //* GET MENU
+    const fetchMenu = async() => {
+        try {
+            const response = await fetch('http://localhost:3000/fetchReservation', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            const res = await response.json();
+            console.log(res);
+        } catch {
+            console.error('error from ManagerPage.jsx - fetchMenu method');
+        }
+    }
     
     return (
         <div>
