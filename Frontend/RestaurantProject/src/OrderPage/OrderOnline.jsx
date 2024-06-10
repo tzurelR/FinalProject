@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Accordion from '@mui/material/Accordion';
 import AccordionActions from '@mui/material/AccordionActions';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -7,77 +7,123 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
-import israeliSaladImg from '../../public/images/israeli-salad.jpeg';
-import houseBreadImg from '../../public/images/house-bread.jpeg';
-import araisImg from '../../public/images/arais.jpeg';
-import grilledPulletImg from '../../public/images/grilled-chicken.jpeg';
-import entrecoteSteakImg from '../../public/images/entrecote-steak.jpeg';
-import hamburgerImg from '../../public/images/hamburger.jpg';
-import colaImg from '../../public/images/cola.png';
-import beerImg from '../../public/images/beerImg.jpeg'
+import israeliSaladImg from '../../public/images/Israeli Salad.jpeg';
+import araisImg from '../../public/images/Arais.jpeg';
+import grilledPulletImg from '../../public/images/Grilled Pullet.jpeg';
+import hamburgerImg from '../../public/images/Hamburger.jpeg';
+import colaImg from '../../public/images/Cola.jpeg';
+import beerImg from '../../public/images/Beer.jpeg'
 
 //! When I do menu pull the prices from menu collection!!!
 
 export default function OrderOnline() {
 
+  const [menu, setMenu] = useState(null);
+
+  useEffect(() => {
+    const menuData = async() => {
+      try{
+      const response = await fetch('http://localhost:3000/getMenu', {
+        method: 'GET',
+        headers: {
+       'Content-Type': 'application/json'
+        }
+      })
+      const res = await response.json();
+      setMenu(res);
+      } catch {
+        console.error('Error from getMenu in Frontend');
+      }
+    } 
+    menuData();
+  }, [])
+
+
   const navigate = useNavigate();
-  const [israeliSaladCount, setIsraeliSaladCount] = useState(0);
-  const [araisCount, setAraisCount] = useState(0);
-  const [grilledPulletCount, setGrilledPulletCount] = useState(0);
-  const [hamburgerCount, setHamburgerCount] = useState(0);
-  const [colaCount, setColaCount] = useState(0);
-  const [beerCount, setBeerCount] = useState(0);
-  const [israeliSaladCost, araisCost, grilledPulletCost, hamburgerCost, colaCost, beerCost] = [8, 10, 15, 12, 3, 6]
+  // const [israeliSaladCount, setIsraeliSaladCount] = useState(0);
+  // const [araisCount, setAraisCount] = useState(0);
+  // const [grilledPulletCount, setGrilledPulletCount] = useState(0);
+  // const [hamburgerCount, setHamburgerCount] = useState(0);
+  // const [colaCount, setColaCount] = useState(0);
+  // const [beerCount, setBeerCount] = useState(0);
+
+  const [counts, setCounts] = useState({
+    israeliSaladCount: 0,
+    araisCount: 0,
+    grilledPulletCount: 0,
+    hamburgerCount: 0,
+    colaCount: 0,
+    beerCount: 0
+  })
 
   const setCount = (param, operator) => {
-    switch(param) {
-      case 'israeliSalad':
-        setIsraeliSaladCount(operator === '+' ? israeliSaladCount + 1 : Math.max(0, israeliSaladCount - 1));
-        break;
-  
-      case 'arais':
-        setAraisCount(operator === '+' ? araisCount + 1 : Math.max(0, araisCount - 1));
-        break;
-      
-      case 'grilledPullet':
-        setGrilledPulletCount(operator === '+' ? grilledPulletCount + 1 : Math.max(0, grilledPulletCount - 1));
-        break;
-
-      case 'hamburger':
-        setHamburgerCount(operator === '+' ? hamburgerCount + 1 : Math.max(0, hamburgerCount - 1));
-        break;
-
-      case 'cola':
-        setColaCount(operator === '+' ? colaCount + 1 : Math.max(0, colaCount - 1));
-        break;
-
-      case 'beer':
-        setBeerCount(operator === '+' ? beerCount + 1 : Math.max(0, beerCount - 1));
-        break;
-    }
+    setCounts(prev => {
+      if(operator === '+') {
+        return {
+          ...prev,
+          [param]: Math.min(12, prev[param] + 1)
+        }
+      } else if(operator === '-') {
+        return {
+          ...prev,
+          [param]: Math.max(0, prev[param] - 1)
+        }
+      }
+    })
   }
 
+
+  const changeDishNameToVar = (dish) => {
+    let temp = dish.charAt(0).toLowerCase() + dish.slice(1);
+    temp.includes(' ') ? temp = temp.split(' ').join('') : temp;
+    return temp;
+  }
+
+
+
   const goToPay = () => {
-    const countObj = {
-      israeliSalad: ['Israeli Salad', israeliSaladCount, israeliSaladCost],
-      arais: ['Arais', araisCount, araisCost],
-      grilledPullet: ['Grilled Pullet', grilledPulletCount, grilledPulletCost],
-      hamburgerCount: ['Hamburger', hamburgerCount, hamburgerCost],
-      colaCount: ['Cola', colaCount, colaCost],
-      beerCount: ['Beer', beerCount, beerCost]
-    }
+    const countObj = {}
+    menu.data.map((dish) => {
+      const varName = changeDishNameToVar(dish.dishName);
+      countObj[changeDishNameToVar(dish.dishName)] = [dish.dishName, counts[`${changeDishNameToVar(dish.dishName)}Count`], dish.cost]
+    })
+    console.log(countObj);
     navigate('/order-online/payment', { state: countObj });
   }
 
 
 
-
+  if(menu === null) return <div>Loading...</div>;
+  
   return (
     <div>
       <div>
-        <h4>STARTERS:</h4>
       </div>
-      <Accordion>
+      {menu.data.map((dish) => (
+        <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1-content"
+          id="panel1-header"
+        >
+          {dish.dishName} {dish.cost}$
+        </AccordionSummary>
+        {dish.ingredients.map((ingredient, index) => (
+          
+          <AccordionDetails>
+            {ingredient.ingredientName} X {ingredient.ingredientAmount} {index+1 !== dish.ingredients.length ? ',' : ''}
+          </AccordionDetails> 
+        ))}
+        <img src = {`../../public/images/${dish.dishName}.jpeg`} style={{ width: '250px', height: '150px' }}/>
+        <div style={{ display: 'flex' }}>
+        <Button variant="contained" onClick={() => setCount(`${`${changeDishNameToVar(dish.dishName)}Count`}`, '+')}>+</Button>
+        <h4 style={{ marginLeft: '20px', marginRight: '20px'}}>{counts[`${changeDishNameToVar(dish.dishName)}Count`]}</h4>
+        <Button variant="contained" onClick={() => setCount(`${`${changeDishNameToVar(dish.dishName)}Count`}`, '-')}>-</Button>
+        </div>
+      </Accordion>
+      ))}
+
+      {/* <Accordion>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1-content"
@@ -194,7 +240,7 @@ export default function OrderOnline() {
         <h4 style={{ marginLeft: '20px', marginRight: '20px'}}>{beerCount}</h4>
         <Button variant="contained" onClick={() => setCount('beer', '-')}>-</Button>
         </div>
-      </Accordion>
+      </Accordion> */}
 
       <Button variant="contained" style={{marginTop:'40px'}} onClick={goToPay}>PAY</Button>
     </div>
