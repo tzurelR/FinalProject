@@ -7,14 +7,6 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
-import israeliSaladImg from '../../public/images/Israeli Salad.jpeg';
-import araisImg from '../../public/images/Arais.jpeg';
-import grilledPulletImg from '../../public/images/Grilled Pullet.jpeg';
-import hamburgerImg from '../../public/images/Hamburger.jpeg';
-import colaImg from '../../public/images/Cola.jpeg';
-import beerImg from '../../public/images/Beer.jpeg'
-
-//! When I do menu pull the prices from menu collection!!!
 
 export default function OrderOnline() {
 
