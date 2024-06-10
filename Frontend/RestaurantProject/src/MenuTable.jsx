@@ -7,7 +7,6 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import Input from '@mui/joy/Input';
 
 
 export default function MenuTable(props) {
@@ -16,12 +15,31 @@ export default function MenuTable(props) {
     const [priceChange, setPriceChange] = useState('');
 
     const handleInputChange = (event) => {
-        console.log(event.target.className.includes('priceInput'));
         if(event.target.className === 'dishInput') {
-            console.log(event.target.placeholder);
+            props.propsToMenuTable.setInputsArr((prev) => {
+              const index = prev.findIndex(item => item[0] === event.target.placeholder);
+              if (index === -1) {
+                return prev;
+              }
+              const newArray = [...prev];
+
+              newArray[index] = [newArray[index][0], newArray[index][1], event.target.value, newArray[index][3]];
+              return newArray;
+            })
         } else if (event.target.className.includes('priceInput')) {
             console.log(event.target.className.split('-')[1]);
+            props.propsToMenuTable.setInputsArr((prev) => {
+              const index = prev.findIndex(item => item[0] === event.target.className.split('-')[1]);
+              if (index === -1) {
+                return prev;
+              }
+              const newArray = [...prev];
+
+              newArray[index] = [newArray[index][0], newArray[index][1], newArray[index][2], event.target.value];
+              return newArray;
+            })
         }
+        console.log(props.propsToMenuTable.inputsArr);
     }
 
     const changeDish = async(event) => {
@@ -81,7 +99,6 @@ export default function MenuTable(props) {
 
               <button onClick={deleteDish} style={{backgroundColor: 'red', marginLeft: '20px'}} className={`${item.dishName}`}>delete</button>
 
-              {index + 1 === props.propsToMenuTable.menu.length ? <button style={{backgroundColor: '#4BCB00', marginLeft: '20px'}} className={item.invite_id}>Add</button> : null}
               </TableCell>
             </TableRow>
           )) : null}

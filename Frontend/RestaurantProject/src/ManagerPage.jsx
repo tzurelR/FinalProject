@@ -110,6 +110,7 @@ const ManagerPage = () => {
         tableCell: ['Dish Name', 'Price', 'Ingredients'],
         menu,
         inputsArr,
+        setInputsArr,
         fetchMenu
     }
     
