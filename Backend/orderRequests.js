@@ -27,6 +27,7 @@ const orderOnlineMethod = async(req, res) => {
     countOfFood--;
     const foodArray = bodyArr.slice(0, countOfFood);
     const details = bodyArr.slice(countOfFood);
+    // names of dishes in last order
     const foodNamesArray = foodArray.map((e) => e.name);
     
 
@@ -61,7 +62,6 @@ const orderOnlineMethod = async(req, res) => {
     })
 
     //* update Ingredients 
-    //! problem!!!
     await updateIngredients(ingredientsArr);
     
     await orderOnlineDb.insertMany({

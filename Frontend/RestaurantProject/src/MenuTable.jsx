@@ -14,19 +14,20 @@ export default function MenuTable(props) {
     
     const [dishNameChange, setDishNameChange] = useState('');
     const [priceChange, setPriceChange] = useState('');
-    console.log(props.propsToMenuTable.inputsArr);
+
     const handleInputChange = (event) => {
+        console.log(event.target.className.includes('priceInput'));
         if(event.target.className === 'dishInput') {
-            setDishNameChange(event.target.value);
-        } else if (event.target.className === 'priceInput') {
-            setPriceChange(event.target.value);
+            console.log(event.target.placeholder);
+        } else if (event.target.className.includes('priceInput')) {
+            console.log(event.target.className.split('-')[1]);
         }
     }
 
     const changeDish = async(event) => {
         //! check dish name
-        //! check price is number
-        //! popup if you need alert!!!
+        //! check price is number, and its not very big number!
+        //! popup if you need alert!!! after click change you need to reset the inputsObject!!! [dis, cost, '', '']
 
     }
 
@@ -71,7 +72,7 @@ export default function MenuTable(props) {
                 <input className='dishInput' onChange={handleInputChange} type='text' placeholder={`${item.dishName}`} style={{backgroundColor: 'white', color: 'black', border: '1px solid #ccc', }}/>
               </TableCell>
 
-              <TableCell align="1right"><input className='priceInput' onChange={handleInputChange} type='text' placeholder={item.cost} style={{width: '20px', backgroundColor: 'white', color: 'black', border: '1px solid #ccc', }}/></TableCell>
+              <TableCell align="1right"><input className={`priceInput-${item.dishName}`} onChange={handleInputChange} type='text' placeholder={item.cost} style={{width: '20px', backgroundColor: 'white', color: 'black', border: '1px solid #ccc', }}/></TableCell>
 
               <TableCell align="1right">{item.ingredients.map((ingredient) => (<p>{ingredient.ingredientName} X {ingredient.ingredientAmount}</p>))}</TableCell>
 
