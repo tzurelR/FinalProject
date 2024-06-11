@@ -88,7 +88,16 @@ const getIngredients = async(req, res) => {
     } catch(error) {
         res.json({message: error.message});
     }
-
 }
 
-export {getOrdersOnline, deleteOrderByManager, getReservation, getMenu, deleteDish, changeMenu, getIngredients}
+const changeIngredients = async(req, res) => {
+    try {
+        const dbAns = await ingredientDb.findOneAndUpdate({ingredientName: req.body.ingredientName}, {$set: {amount: req.body.amount}});
+        console.log(dbAns);
+        res.json({message: dbAns});
+    } catch(error) {
+        res.json({message: error.message});
+    }
+}
+
+export {getOrdersOnline, deleteOrderByManager, getReservation, getMenu, deleteDish, changeMenu, getIngredients, changeIngredients}
