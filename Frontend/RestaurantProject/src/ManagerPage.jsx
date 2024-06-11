@@ -49,7 +49,7 @@ const ManagerPage = () => {
     const [reservationArr, setReservationArr] = useState('');
     const [reservationTableHidden, setReservationTableHidden] = useState('hidden');
 
-    const fetchReservations = async() => {
+    const fetchReservations = async(param) => {
         setOrderTableHidden('hidden');
         setMenuTableHidden('hidden');
 
@@ -81,12 +81,12 @@ const ManagerPage = () => {
     const [menuTableHidden, setMenuTableHidden] = useState('hidden');
     const [inputsArr, setInputsArr] = useState([]);
 
-    const fetchMenu = async() => {
+    const fetchMenu = async(param) => {
         setReservationTableHidden('hidden');
         setOrderTableHidden('hidden');
 
         try {
-            if(menuTableHidden === 'hidden') {
+            if(menuTableHidden === 'hidden'  || param === 'fromMenuTable.jsx') {
             setMenuTableHidden('');
             const response = await fetch('http://localhost:3000/fetchMenu', {
                 method: 'GET',
