@@ -6,7 +6,7 @@ import {managerDb} from './DataBase/ManagerDB.js'
 import { orderOnlineMethod } from './orderRequests.js';
 import { checkEmptyTable, saveReservation} from './tableRequests.js';
 import { getMenuData } from './getMenuData.js';
-import { getOrdersOnline, deleteOrderByManager, getReservation, getMenu, deleteDish, changeMenu, getIngredients } from './managerOperations.js';
+import { getOrdersOnline, deleteOrderByManager, getReservation, getMenu, deleteDish, changeMenu, getIngredients, changeIngredients } from './managerOperations.js';
 const userNameDB = 'tzurel150';
 const passwordDB = 'JQGdzI57qA9hOrYJ';
 const DB_URL = `mongodb+srv://tzurel150:${passwordDB}@finalproject.dtuuckj.mongodb.net/?retryWrites=true&w=majority&appName=FinalProject`;
@@ -32,6 +32,7 @@ app.get('/fetchIngredients', getIngredients);
 app.post('/deleteDish', deleteDish);
 app.post('/deleteOrder', deleteOrderByManager);
 app.post('/changeMenu', changeMenu);
+app.post('/changeIngredients', changeIngredients)
 
 //* POST for check empty table:
 app.post('/check-emptyTable', checkEmptyTable);
