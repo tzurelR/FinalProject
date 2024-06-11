@@ -54,7 +54,7 @@ export default function MenuTable(props) {
             body: JSON.stringify(objToSend)
             });
           const res = await response.json();
-          console.log('AAA');
+
           props.propsToMenuTable.fetchMenu('fromMenuTable.jsx');
         }
       })

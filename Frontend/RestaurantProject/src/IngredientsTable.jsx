@@ -15,7 +15,46 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function IngredientsTable(props) {
 
-  console.log(props);
+    const handleInputChange = (event) => {
+        props.propsToIngredientsTable.setIngredientChangeArr((prev) => {
+            const index = prev.findIndex(item => item[0] === event.target.className)
+            const temp = [...prev];
+            temp[index][2] = event.target.value;
+            return temp;
+        })
+    }
+
+    const changeClick = async(event) => {
+        const pointer = props.propsToIngredientsTable.ingredientChangeArr;
+        let index;
+        let objToSend = {};
+        for(const item in pointer) {
+            if(pointer[item][0] === event.target.className) {
+                index = item;
+                const newAmount = (!isNaN(pointer[item][2] * 1) && !((pointer[item][2] * 1) < 1) && !((pointer[item][2] * 1) > 250)) ? pointer[item][2] * 1 : pointer[item][1] * 1;
+                objToSend = {ingredientName: pointer[item][0], amount: newAmount}
+            }
+        }
+        if(index >= 0) {
+            const response = await fetch('http://localhost:3000/changeIngredients', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(objToSend)
+                });
+            const res = await response.json();
+            console.log(res);
+        }
+
+        props.propsToIngredientsTable.setIngredientChangeArr((prev, index) => {
+            const temp = [...prev];
+            temp.map((item) => item[2] = '')
+            return temp;
+        })
+        console.log(props.propsToIngredientsTable.ingredientChangeArr);
+    }
+
   return (
     <div>
     <TableContainer component={Paper}>
@@ -39,8 +78,8 @@ export default function IngredientsTable(props) {
               <TableCell component="th" scope="row">
                 {item.ingredientName}
               </TableCell>
-              <TableCell align="right">{item.amount}</TableCell>
-              <TableCell align="1right"><button style={{backgroundColor: 'red'}} className={`${item.invite_id}`}>delete</button></TableCell>
+              <TableCell align="right"><input className={item.ingredientName} placeholder= {item.amount} style={{width: '20px', backgroundColor: 'white', color: 'black', border: '1px solid #ccc', }} onChange={handleInputChange}/></TableCell>
+              <TableCell align="right"><button style={{backgroundColor: '#FFBD06'}} className={`${item.ingredientName}`} onClick={changeClick}>change</button></TableCell>
               </TableRow>
           )) : null}
         </TableBody>
