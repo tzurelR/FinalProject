@@ -8,6 +8,7 @@ import SetMealIcon from '@mui/icons-material/SetMeal';
 import OrdersTable from './OrdersTable';
 import ReservationTable from './ReservationTable';
 import MenuTable from './MenuTable';
+import IngredientsTable from './IngredientsTable';
 import './App.css'
 
 const ManagerPage = () => {
@@ -19,6 +20,7 @@ const ManagerPage = () => {
     const fetchOrders = async(param) => {
         setReservationTableHidden('hidden');
         setMenuTableHidden('hidden');
+        setIngredientsTableHidden('hidden');
 
         try {
         if(orderTableHidden === 'hidden' || param === 'fromOrderTable.jsx') {
@@ -52,6 +54,7 @@ const ManagerPage = () => {
     const fetchReservations = async(param) => {
         setOrderTableHidden('hidden');
         setMenuTableHidden('hidden');
+        setIngredientsTableHidden('hidden');
 
         try {
             if(reservationTableHidden === 'hidden') {
@@ -84,6 +87,7 @@ const ManagerPage = () => {
     const fetchMenu = async(param) => {
         setReservationTableHidden('hidden');
         setOrderTableHidden('hidden');
+        setIngredientsTableHidden('hidden');
 
         try {
             if(menuTableHidden === 'hidden'  || param === 'fromMenuTable.jsx') {
@@ -115,10 +119,17 @@ const ManagerPage = () => {
     }
 
     //* GET INGREDIENTS
-    const [ingredientsArr, setIngredientsArr] = useState(null);
+    const [ingredientsArr, setIngredientsArr] = useState([]);
+    const [ingredientsTableHidden, setIngredientsTableHidden] = useState('hidden');
 
     const fetchIngredients = async(param) => {
+        setReservationTableHidden('hidden');
+        setOrderTableHidden('hidden');
+        setMenuTableHidden('hidden');
+
         try {
+        if(ingredientsTableHidden === 'hidden') {
+            setIngredientsTableHidden('');    
             const response = await fetch('http://localhost:3000/fetchIngredients', {
                 method: 'GET',
                 headers: {
@@ -128,6 +139,9 @@ const ManagerPage = () => {
             const res = await response.json();
             setIngredientsArr(res);
             console.log(res);
+        } else {
+            setIngredientsTableHidden('hidden');
+        }
         } catch {
             console.error('error from ManagerPage.jsx - fetchIngredients method');
         }
@@ -157,6 +171,7 @@ const ManagerPage = () => {
             {orderTableHidden === 'hidden' ? null : <OrdersTable className='orderTable' propsToOrderTable={propsToOrderTable}/>}
             {reservationTableHidden === 'hidden' ? null : <ReservationTable propsToReservationTable={propsToReservationTable}/>}
             {menuTableHidden === 'hidden' ? null : <MenuTable propsToMenuTable={propsToMenuTable}/>}
+            {ingredientsTableHidden === 'hidden' ? null : <IngredientsTable propsToIngredientsTable={propsToIngredientsTable}/>}
         </div>
     )
 }
