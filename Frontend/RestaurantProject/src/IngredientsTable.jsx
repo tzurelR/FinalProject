@@ -47,6 +47,8 @@ export default function IngredientsTable(props) {
             console.log(res);
         }
 
+        props.propsToIngredientsTable.fetchIngredients('fromIngredientsTable.jsx');
+
         props.propsToIngredientsTable.setIngredientChangeArr((prev, index) => {
             const temp = [...prev];
             temp.map((item) => item[2] = '')

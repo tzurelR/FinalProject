@@ -129,7 +129,7 @@ const ManagerPage = () => {
         setMenuTableHidden('hidden');
 
         try {
-        if(ingredientsTableHidden === 'hidden') {
+        if(ingredientsTableHidden === 'hidden' || param === 'fromIngredientsTable.jsx') {
             setIngredientsTableHidden('');    
             const response = await fetch('http://localhost:3000/fetchIngredients', {
                 method: 'GET',
@@ -154,7 +154,8 @@ const ManagerPage = () => {
         tableCell: ['Ingredient Name', 'amount'],
         ingredientsArr,
         ingredientChangeArr,
-        setIngredientChangeArr
+        setIngredientChangeArr,
+        fetchIngredients
     }
     
     return (
