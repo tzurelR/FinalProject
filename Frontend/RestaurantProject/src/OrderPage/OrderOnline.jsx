@@ -32,7 +32,7 @@ export default function OrderOnline() {
 
 
   const navigate = useNavigate();
-  
+  //* need this array for cost and the images. The code in the future will be more generic, with save the url of images in DB.
   const sourceDishNames = ['Israeli Salad', 'Arais', 'Grilled Pullet', 'Hamburger', 'Cola', 'Beer'];
 
   const [counts, setCounts] = useState({
