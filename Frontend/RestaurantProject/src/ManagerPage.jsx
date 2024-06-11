@@ -113,6 +113,30 @@ const ManagerPage = () => {
         setInputsArr,
         fetchMenu
     }
+
+    //* GET INGREDIENTS
+    const [ingredientsArr, setIngredientsArr] = useState(null);
+
+    const fetchIngredients = async(param) => {
+        try {
+            const response = await fetch('http://localhost:3000/fetchIngredients', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            const res = await response.json();
+            setIngredientsArr(res);
+            console.log(res);
+        } catch {
+            console.error('error from ManagerPage.jsx - fetchIngredients method');
+        }
+    }
+
+    const propsToIngredientsTable = {
+        tableCell: ['Ingredient Name', 'amount'],
+        ingredientsArr
+    }
     
     return (
         <div>
@@ -126,7 +150,7 @@ const ManagerPage = () => {
             <Button style={{marginTop: '40px', fontSize: '1.1em'}} className='side-button' variant="contained" color="secondary" onClick={fetchMenu}>
             Change Menu <RestaurantMenuIcon/>
             </Button>
-            <Button style={{marginTop: '40px', fontSize: '1.1em'}} className='side-button' variant="contained" color="secondary">
+            <Button onClick={fetchIngredients} style={{marginTop: '40px', fontSize: '1.1em'}} className='side-button' variant="contained" color="secondary">
             Update Ingredients <SetMealIcon/>
             </Button>
             </div>
