@@ -32,12 +32,8 @@ export default function OrderOnline() {
 
 
   const navigate = useNavigate();
-  // const [israeliSaladCount, setIsraeliSaladCount] = useState(0);
-  // const [araisCount, setAraisCount] = useState(0);
-  // const [grilledPulletCount, setGrilledPulletCount] = useState(0);
-  // const [hamburgerCount, setHamburgerCount] = useState(0);
-  // const [colaCount, setColaCount] = useState(0);
-  // const [beerCount, setBeerCount] = useState(0);
+  
+  const sourceDishNames = ['Israeli Salad', 'Arais', 'Grilled Pullet', 'Hamburger', 'Cola', 'Beer'];
 
   const [counts, setCounts] = useState({
     israeliSaladCount: 0,
@@ -75,9 +71,9 @@ export default function OrderOnline() {
 
   const goToPay = () => {
     const countObj = {}
-    menu.data.map((dish) => {
-      const varName = changeDishNameToVar(dish.dishName);
-      countObj[changeDishNameToVar(dish.dishName)] = [dish.dishName, counts[`${changeDishNameToVar(dish.dishName)}Count`], dish.cost]
+    menu.data.map((dish, index) => {
+      const varName = changeDishNameToVar(sourceDishNames[index]);
+      countObj[changeDishNameToVar(dish.dishName)] = [sourceDishNames[index], counts[`${changeDishNameToVar(sourceDishNames[index])}Count`], dish.cost]
     })
     console.log(countObj);
     navigate('/order-online/payment', { state: countObj });
@@ -91,7 +87,7 @@ export default function OrderOnline() {
     <div>
       <div>
       </div>
-      {menu.data.map((dish) => (
+      {menu.data.map((dish, index) => (
         <Accordion>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -106,11 +102,11 @@ export default function OrderOnline() {
             {ingredient.ingredientName} X {ingredient.ingredientAmount} {index+1 !== dish.ingredients.length ? ',' : ''}
           </AccordionDetails> 
         ))}
-        <img src = {`../../public/images/${dish.dishName}.jpeg`} style={{ width: '250px', height: '150px' }}/>
+        <img src = {`../../public/images/${sourceDishNames[index]}.jpeg`} style={{ width: '250px', height: '150px' }}/>
         <div style={{ display: 'flex' }}>
-        <Button variant="contained" onClick={() => setCount(`${`${changeDishNameToVar(dish.dishName)}Count`}`, '+')}>+</Button>
-        <h4 style={{ marginLeft: '20px', marginRight: '20px'}}>{counts[`${changeDishNameToVar(dish.dishName)}Count`]}</h4>
-        <Button variant="contained" onClick={() => setCount(`${`${changeDishNameToVar(dish.dishName)}Count`}`, '-')}>-</Button>
+        <Button variant="contained" onClick={() => setCount(`${`${changeDishNameToVar(sourceDishNames[index])}Count`}`, '+')}>+</Button>
+        <h4 style={{ marginLeft: '20px', marginRight: '20px'}}>{counts[`${changeDishNameToVar(sourceDishNames[index])}Count`]}</h4>
+        <Button variant="contained" onClick={() => setCount(`${`${changeDishNameToVar(sourceDishNames[index])}Count`}`, '-')}>-</Button>
         </div>
       </Accordion>
       ))}
