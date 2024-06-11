@@ -121,6 +121,7 @@ const ManagerPage = () => {
     //* GET INGREDIENTS
     const [ingredientsArr, setIngredientsArr] = useState([]);
     const [ingredientsTableHidden, setIngredientsTableHidden] = useState('hidden');
+    const [ingredientChangeArr, setIngredientChangeArr] = useState([]);
 
     const fetchIngredients = async(param) => {
         setReservationTableHidden('hidden');
@@ -136,9 +137,11 @@ const ManagerPage = () => {
                     'Content-Type': 'application/json'
                 }
             })
+            const temp = [];
             const res = await response.json();
+            res.message.map((ingredient) => temp.push([ingredient.ingredientName, ingredient.amount, '']));
+            setIngredientChangeArr(temp);
             setIngredientsArr(res);
-            console.log(res);
         } else {
             setIngredientsTableHidden('hidden');
         }
@@ -149,7 +152,9 @@ const ManagerPage = () => {
 
     const propsToIngredientsTable = {
         tableCell: ['Ingredient Name', 'amount'],
-        ingredientsArr
+        ingredientsArr,
+        ingredientChangeArr,
+        setIngredientChangeArr
     }
     
     return (
