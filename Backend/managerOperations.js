@@ -69,4 +69,15 @@ const deleteDish = async(req, res) => {
     }
 }
 
-export {getOrdersOnline, deleteOrderByManager, getReservation, getMenu, deleteDish}
+const changeMenu = async(req, res) => {
+    try{
+        //find in menu and update
+        const dbAns = await menuDb.findOneAndUpdate({dishName: req.body.dishName}, {$set: {dishName: req.body.newName, cost: req.body.newCost}});
+        console.log(req.body);
+        res.json({message: dbAns})
+    } catch(error) {
+        res.json({message: error.message});
+    }
+}
+
+export {getOrdersOnline, deleteOrderByManager, getReservation, getMenu, deleteDish, changeMenu}

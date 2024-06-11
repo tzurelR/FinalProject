@@ -27,7 +27,6 @@ export default function MenuTable(props) {
               return newArray;
             })
         } else if (event.target.className.includes('priceInput')) {
-            console.log(event.target.className.split('-')[1]);
             props.propsToMenuTable.setInputsArr((prev) => {
               const index = prev.findIndex(item => item[0] === event.target.className.split('-')[1]);
               if (index === -1) {
@@ -39,14 +38,34 @@ export default function MenuTable(props) {
               return newArray;
             })
         }
-        console.log(props.propsToMenuTable.inputsArr);
     }
 
     const changeDish = async(event) => {
-        //! check dish name
-        //! check price is number, and its not very big number!
-        //! popup if you need alert!!! after click change you need to reset the inputsObject!!! [dis, cost, '', '']
+      props.propsToMenuTable.inputsArr.forEach(async(item) => {
+        if(item[0] === event.target.className) {
+          const newName = (item[2] === '') ? item[0]: item[2];
+          const newCost = (!isNaN(item[3] * 1) && !((item[3] * 1) < 1) && !((item[3] * 1) > 200)) ? item[3] : item[1]; 
+          const objToSend = {dishName: event.target.className, newName, newCost}
+          const response = await fetch('http://localhost:3000/changeMenu', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(objToSend)
+            });
+          const res = await response.json();
+          console.log('AAA');
+          props.propsToMenuTable.fetchMenu('fromMenuTable.jsx');
+        }
+      })
 
+      props.propsToMenuTable.setInputsArr((prev) => {
+          const newArr = prev.map(item => {
+            return [item[0], item[1], '', ''];
+          })
+          return newArr;
+        })
+        console.log(props.propsToMenuTable.inputsArr);
     }
 
     const deleteDish = async(event) => {
