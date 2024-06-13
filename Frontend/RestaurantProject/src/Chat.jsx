@@ -1,117 +1,160 @@
-import React from "react";
-import {
-  MDBContainer,
-  MDBRow,
-  MDBCol,
-  MDBCard,
-  MDBCardHeader,
-  MDBCardBody,
-  MDBIcon,
-  MDBTextArea,
-} from "mdb-react-ui-kit";
+import * as React from 'react';
+import { useState } from 'react';
+import PropTypes from 'prop-types';
+import clsx from 'clsx';
+import { styled, css } from '@mui/system';
+import { Modal as BaseModal } from '@mui/base/Modal';
 
-export default function Chat() {
+export default function ModalUnstyled() {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const messagesTest = ['Hi', 'Hi2', 'how are you?', 'fine thanks'];
+
+  const sendButtonClick = (event) => {
+    event.preventDefault();
+  }
+
   return (
-    <MDBContainer className="py-5">
-      <MDBRow className="d-flex justify-content-center">
-        <MDBCol md="8" lg="6" xl="4">
-          <MDBCard id="chat1" style={{ borderRadius: "15px" }}>
-            <MDBCardHeader
-              className="d-flex justify-content-between align-items-center p-3 bg-info text-white border-bottom-0"
-              style={{
-                borderTopLeftRadius: "15px",
-                borderTopRightRadius: "15px",
-              }}
-            >
-              <MDBIcon fas icon="angle-left" />
-              <p className="mb-0 fw-bold">Live chat</p>
-              <MDBIcon fas icon="times" />
-            </MDBCardHeader>
-
-            <MDBCardBody>
-              <div className="d-flex flex-row justify-content-start mb-4">
-                <img
-                  src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
-                  alt="avatar 1"
-                  style={{ width: "45px", height: "100%" }}
-                />
-                <div
-                  className="p-3 ms-3"
-                  style={{
-                    borderRadius: "15px",
-                    backgroundColor: "rgba(57, 192, 237,.2)",
-                  }}
-                >
-                  <p className="small mb-0">
-                    Hello and thank you for visiting MDBootstrap. Please click
-                    the video below.
-                  </p>
-                </div>
-              </div>
-
-              <div className="d-flex flex-row justify-content-end mb-4">
-                <div
-                  className="p-3 me-3 border"
-                  style={{ borderRadius: "15px", backgroundColor: "#fbfbfb" }}
-                >
-                  <p className="small mb-0">
-                    Thank you, I really like your product.
-                  </p>
-                </div>
-                <img
-                  src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava2-bg.webp"
-                  alt="avatar 1"
-                  style={{ width: "45px", height: "100%" }}
-                />
-              </div>
-
-              <div className="d-flex flex-row justify-content-start mb-4">
-                <img
-                  src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
-                  alt="avatar 1"
-                  style={{ width: "45px", height: "100%" }}
-                />
-                <div className="ms-3" style={{ borderRadius: "15px" }}>
-                  <div className="bg-image">
-                    <img
-                      src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/screenshot1.webp"
-                      style={{ borderRadius: "15px" }}
-                      alt="video"
-                    />
-                    <a href="#!">
-                      <div className="mask"></div>
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              <div className="d-flex flex-row justify-content-start mb-4">
-                <img
-                  src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
-                  alt="avatar 1"
-                  style={{ width: "45px", height: "100%" }}
-                />
-                <div
-                  className="p-3 ms-3"
-                  style={{
-                    borderRadius: "15px",
-                    backgroundColor: "rgba(57, 192, 237,.2)",
-                  }}
-                >
-                  <p className="small mb-0">...</p>
-                </div>
-              </div>
-
-              <MDBTextArea
-                className="form-outline"
-                label="Type your message"
-                id="textAreaExample"
-                rows={4}
-              />
-            </MDBCardBody>
-          </MDBCard>
-        </MDBCol>
-      </MDBRow>
-    </MDBContainer>
+    <div>
+      <TriggerButton type="button" onClick={handleOpen} style={{width: '450px'}}>
+        get advice from chatGpt
+      </TriggerButton>
+      <Modal
+        aria-labelledby="unstyled-modal-title"
+        aria-describedby="unstyled-modal-description"
+        open={open}
+        onClose={handleClose}
+        slots={{ backdrop: StyledBackdrop }}
+      >
+        <ModalContent sx={{ width: 400 }}>
+            <form style={{display: 'flex', alignItems: 'center'}}>
+                <input type='text' placeholder='Type message' style={{width: '350px', height: '60px', fontSize: '16px'}}/>
+                <button onClick={sendButtonClick} style={{width: '80px', height: '40px'}}>Send</button>
+            </form>
+        </ModalContent>
+      </Modal>
+    </div>
   );
 }
+
+const Backdrop = React.forwardRef((props, ref) => {
+  const { open, className, ...other } = props;
+  return (
+    <div
+      className={clsx({ 'base-Backdrop-open': open }, className)}
+      ref={ref}
+      {...other}
+    />
+  );
+});
+
+Backdrop.propTypes = {
+  className: PropTypes.string.isRequired,
+  open: PropTypes.bool,
+};
+
+const blue = {
+  200: '#99CCFF',
+  300: '#66B2FF',
+  400: '#3399FF',
+  500: '#007FFF',
+  600: '#0072E5',
+  700: '#0066CC',
+};
+
+const grey = {
+  50: '#F3F6F9',
+  100: '#E5EAF2',
+  200: '#DAE2ED',
+  300: '#C7D0DD',
+  400: '#B0B8C4',
+  500: '#9DA8B7',
+  600: '#6B7A90',
+  700: '#434D5B',
+  800: '#303740',
+  900: '#1C2025',
+};
+
+const Modal = styled(BaseModal)`
+  position: fixed;
+  z-index: 1300;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const StyledBackdrop = styled(Backdrop)`
+  z-index: -1;
+  position: fixed;
+  inset: 0;
+  background-color: rgb(0 0 0 / 0.5);
+  -webkit-tap-highlight-color: transparent;
+`;
+
+const ModalContent = styled('div')(
+  ({ theme }) => css`
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 500;
+    text-align: start;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    overflow: hidden;
+    background-color: ${theme.palette.mode === 'dark' ? grey[900] : '#fff'};
+    border-radius: 8px;
+    border: 1px solid ${theme.palette.mode === 'dark' ? grey[700] : grey[200]};
+    box-shadow: 0 4px 12px
+      ${theme.palette.mode === 'dark' ? 'rgb(0 0 0 / 0.5)' : 'rgb(0 0 0 / 0.2)'};
+    padding: 24px;
+    color: ${theme.palette.mode === 'dark' ? grey[50] : grey[900]};
+
+    & .modal-title {
+      margin: 0;
+      line-height: 1.5rem;
+      margin-bottom: 8px;
+    }
+
+    & .modal-description {
+      margin: 0;
+      line-height: 1.5rem;
+      font-weight: 400;
+      color: ${theme.palette.mode === 'dark' ? grey[400] : grey[800]};
+      margin-bottom: 4px;
+    }
+  `,
+);
+
+const TriggerButton = styled('button')(
+  ({ theme }) => css`
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 600;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    padding: 8px 16px;
+    border-radius: 8px;
+    transition: all 150ms ease;
+    cursor: pointer;
+    background: ${theme.palette.mode === 'dark' ? grey[900] : '#fff'};
+    border: 1px solid ${theme.palette.mode === 'dark' ? grey[700] : grey[200]};
+    color: ${theme.palette.mode === 'dark' ? grey[200] : grey[900]};
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+
+    &:hover {
+      background: ${theme.palette.mode === 'dark' ? grey[800] : grey[50]};
+      border-color: ${theme.palette.mode === 'dark' ? grey[600] : grey[300]};
+    }
+
+    &:active {
+      background: ${theme.palette.mode === 'dark' ? grey[700] : grey[100]};
+    }
+
+    &:focus-visible {
+      box-shadow: 0 0 0 4px ${theme.palette.mode === 'dark' ? blue[300] : blue[200]};
+      outline: none;
+    }
+  `,
+);
