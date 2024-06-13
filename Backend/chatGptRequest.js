@@ -1,0 +1,1 @@
+const apiKey = process.env.GPTAPI_KEY;
