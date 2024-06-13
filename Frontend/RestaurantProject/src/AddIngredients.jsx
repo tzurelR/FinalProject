@@ -2,10 +2,11 @@ import * as React from 'react';
 import { useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 
-export default function AddIngredients() {
+export default function AddIngredients(props) {
 
     const [ingredientName, setIngredientName] = useState('');
     const [amount, setAmount] = useState(0);
+
 
     const handleChange = (event) => {
         if(event.target.className === 'IngredientInput') {
@@ -37,7 +38,7 @@ export default function AddIngredients() {
 
     return (
         <div className='AddIngredientsDiv'>
-            <button style={{backgroundColor: '#FF9E9E', position: 'absolute', top: '0', left: '0', color: 'black'}}><CloseIcon/></button>
+            <button onClick={() => props.setHiddenAddIngredient('hidden')} style={{backgroundColor: '#FF9E9E', position: 'absolute', top: '0', left: '0', color: 'black'}}><CloseIcon/></button>
             <div style={{position: 'absolute', top: '50%', left: '35%'}}>
                 <input className='IngredientInput' placeholder='ingredient name' style={{backgroundColor: 'white', color: 'black', height: '25px'}} onChange={handleChange}/>
             </div>
