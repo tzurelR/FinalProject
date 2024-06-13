@@ -100,4 +100,23 @@ const changeIngredients = async(req, res) => {
     }
 }
 
-export {getOrdersOnline, deleteOrderByManager, getReservation, getMenu, deleteDish, changeMenu, getIngredients, changeIngredients}
+const addIngredient = async(req, res) => {
+    try {
+        //! find the last Ingredient
+        let maxId = await ingredientDb.aggregate([
+            {
+                $group: {
+                _id: null,
+                maxIngredientId: {$max: '$ingredient_id'}
+                }
+            }
+        ])
+        maxId = maxId[0].maxIngredientId + 1;
+        const dbAns = await ingredientDb.insertMany({ingredient_id: maxId, ingredientName: req.body.ingredientName, amount: req.body.amountNum})
+        res.json({dbAns});
+    } catch(error) {
+        res.json({message: error.message});
+    }
+}
+
+export {getOrdersOnline, deleteOrderByManager, getReservation, getMenu, deleteDish, changeMenu, getIngredients, changeIngredients, addIngredient}
