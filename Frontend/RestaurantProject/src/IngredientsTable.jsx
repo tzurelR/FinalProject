@@ -16,6 +16,16 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function IngredientsTable(props) {
 
+  const [hiddenAddIngredient, setHiddenAddIngredient] = useState('hidden');
+
+  const handleAddIngredient = () => {
+    if(hiddenAddIngredient === 'hidden') {
+      setHiddenAddIngredient('');
+    } else {
+      setHiddenAddIngredient('hidden');
+    }
+  }
+
     const handleInputChange = (event) => {
         props.propsToIngredientsTable.setIngredientChangeArr((prev) => {
             const index = prev.findIndex(item => item[0] === event.target.className)
@@ -88,10 +98,11 @@ export default function IngredientsTable(props) {
         </TableBody>
       </Table>
     </TableContainer>
-    <Button variant="contained" color="success" style={{marginTop: '20px'}}>
+    <Button onClick={handleAddIngredient} variant="contained" color="success" style={{marginTop: '20px'}}>
       Add Ingredient
     </Button>
-    <AddIngredients/>
+    {hiddenAddIngredient === '' ? <AddIngredients hiddenAddIngredient={hiddenAddIngredient} 
+    setHiddenAddIngredient={setHiddenAddIngredient}/> : null}
     </div>
   );
 }
