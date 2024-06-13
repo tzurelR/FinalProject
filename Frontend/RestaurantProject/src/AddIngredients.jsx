@@ -11,11 +11,27 @@ export default function AddIngredients() {
         if(event.target.className === 'IngredientInput') {
             setIngredientName(event.target.value);
         } else if (event.target.className === 'amountInput') {
-            // const newAmount = (!isNaN(temp * 1) && !(temp * 1) < 1) && !((temp * 1) > 250);
             setAmount(event.target.value);
         }
     }
 
+    const addClick = async() => {
+        if(ingredientName === '' || (isNaN(amount * 1) || (amount * 1) < 1) || ((amount * 1) > 250)) {
+            alert('invalid inputs! 🙁');
+        } else {
+            const amountNum = amount * 1;
+            const objToSend = {ingredientName, amountNum}
+            const response = await fetch('http://localhost:3000/addIngredient', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(objToSend)
+                });
+            const res = await response.json();
+            console.log(res);
+            }
+        }
     
 
 
@@ -28,7 +44,7 @@ export default function AddIngredients() {
             <div style={{position: 'absolute', top: '60%', left: '35%',}}>
                 <input className='amountInput' placeholder='amount' style={{backgroundColor: 'white', color: 'black', height: '25px'}} onChange={handleChange}/>
             </div>
-            <button style={{ position: 'absolute', bottom: '10px', right: '10px', backgroundColor: '#28a745'}}>Add</button>
+            <button style={{ position: 'absolute', bottom: '10px', right: '10px', backgroundColor: '#28a745'}} onClick={addClick}>Add</button>
         </div>
     )
 }
