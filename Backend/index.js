@@ -7,6 +7,8 @@ import { orderOnlineMethod } from './orderRequests.js';
 import { checkEmptyTable, saveReservation} from './tableRequests.js';
 import { getMenuData } from './getMenuData.js';
 import { getOrdersOnline, deleteOrderByManager, getReservation, getMenu, deleteDish, changeMenu, getIngredients, changeIngredients, addIngredient } from './managerOperations.js';
+import { requestToGpt } from './chatGptRequest.js';
+
 const userNameDB = 'tzurel150';
 const passwordDB = 'JQGdzI57qA9hOrYJ';
 const DB_URL = `mongodb+srv://tzurel150:${passwordDB}@finalproject.dtuuckj.mongodb.net/?retryWrites=true&w=majority&appName=FinalProject`;
@@ -41,7 +43,7 @@ app.post('/sendEmail', saveReservation);
 app.post('/order-online', orderOnlineMethod);
 app.post('/login', login);
 
-
+requestToGpt();
 
 app.listen(port, () => {
     console.log("Server running on port 3000.")
