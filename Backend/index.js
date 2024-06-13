@@ -32,7 +32,7 @@ app.get('/fetchIngredients', getIngredients);
 app.post('/deleteDish', deleteDish);
 app.post('/deleteOrder', deleteOrderByManager);
 app.post('/changeMenu', changeMenu);
-app.post('/changeIngredients', changeIngredients)
+app.post('/changeIngredients', changeIngredients);
 
 //* POST for check empty table:
 app.post('/check-emptyTable', checkEmptyTable);
