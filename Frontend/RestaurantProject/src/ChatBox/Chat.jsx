@@ -30,9 +30,9 @@ export default function ModalUnstyled() {
         slots={{ backdrop: StyledBackdrop }}
       >
         <ModalContent sx={{ width: 400 }}>
-          <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-end'}}>
+          <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
             {messagesTest.map((msg, index) => (
-              <ChatBubble key={index} message={msg} position={index % 2 === 0 ? 'right' : 'left'} />
+              <ChatBubble key={index} message={msg} position={index % 2 === 0 ? 'right' : 'left'} index={index} />
             ))}
           </div>
             <form style={{display: 'flex', alignItems: 'center'}}>
