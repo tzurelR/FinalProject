@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { styled, css } from '@mui/system';
@@ -11,10 +11,24 @@ export default function ModalUnstyled() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const messagesTest = ['Hi', 'Hi2', 'how are you?', 'fine thanks'];
+  const [chat, setChat] = useState([]);
+  const [userInput, setUserInput] = useState('');
+  const inputRef = useRef(null);
 
   const sendButtonClick = (event) => {
     event.preventDefault();
+    setChat((prev) => {
+      const temp = [...prev];
+      temp.push(userInput);
+      return temp;
+    })
+    setUserInput('');
+    inputRef.current.value = '';
+  }
+
+  const handleChange = (event) => {
+    console.log(event.target.value);
+    setUserInput(event.target.value);
   }
 
   return (
@@ -31,12 +45,12 @@ export default function ModalUnstyled() {
       >
         <ModalContent sx={{ width: 400 }}>
           <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
-            {messagesTest.map((msg, index) => (
+            {chat.map((msg, index) => (
               <ChatBubble key={index} message={msg} position={index % 2 === 0 ? 'right' : 'left'} index={index} />
             ))}
           </div>
             <form style={{display: 'flex', alignItems: 'center'}}>
-                <input type='text' placeholder='Type message' style={{width: '350px', height: '60px', fontSize: '16px'}}/>
+                <input ref={inputRef} className='userInput' onChange={handleChange} type='text' placeholder='Type message' style={{width: '350px', height: '60px', fontSize: '16px'}}/>
                 <button onClick={sendButtonClick} style={{width: '80px', height: '40px'}}>Send</button>
             </form>
         </ModalContent>
