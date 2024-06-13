@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { styled, css } from '@mui/system';
 import { Modal as BaseModal } from '@mui/base/Modal';
+import ChatBubble from './ChatBubble';
 
 export default function ModalUnstyled() {
   const [open, setOpen] = React.useState(false);
@@ -29,6 +30,11 @@ export default function ModalUnstyled() {
         slots={{ backdrop: StyledBackdrop }}
       >
         <ModalContent sx={{ width: 400 }}>
+          <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-end'}}>
+            {messagesTest.map((msg, index) => (
+              <ChatBubble key={index} message={msg} position={index % 2 === 0 ? 'right' : 'left'} />
+            ))}
+          </div>
             <form style={{display: 'flex', alignItems: 'center'}}>
                 <input type='text' placeholder='Type message' style={{width: '350px', height: '60px', fontSize: '16px'}}/>
                 <button onClick={sendButtonClick} style={{width: '80px', height: '40px'}}>Send</button>
