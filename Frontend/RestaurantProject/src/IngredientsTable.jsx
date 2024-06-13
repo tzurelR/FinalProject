@@ -87,6 +87,9 @@ export default function IngredientsTable(props) {
         </TableBody>
       </Table>
     </TableContainer>
+    <Button variant="contained" color="success" style={{marginTop: '20px'}}>
+      Add Ingredient
+    </Button>
     </div>
   );
 }
