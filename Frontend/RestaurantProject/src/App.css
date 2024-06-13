@@ -106,6 +106,16 @@
   left: 0px;
 }
 
+.AddIngredientsDiv {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-image: url('../public/images/IngredientImg.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-top: 30px;
+}
 
 
 

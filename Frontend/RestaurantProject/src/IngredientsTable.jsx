@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
+import AddIngredients from './AddIngredients';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -90,6 +91,7 @@ export default function IngredientsTable(props) {
     <Button variant="contained" color="success" style={{marginTop: '20px'}}>
       Add Ingredient
     </Button>
+    <AddIngredients/>
     </div>
   );
 }
