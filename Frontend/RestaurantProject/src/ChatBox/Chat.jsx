@@ -11,6 +11,8 @@ export default function ModalUnstyled() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const additionToGpt = 'Give just short answers.';
+
   const [chat, setChat] = useState([]);
   const [userInput, setUserInput] = useState('');
   const inputRef = useRef(null);
@@ -24,12 +26,10 @@ export default function ModalUnstyled() {
       }
     })
     const res = await response.json();
-    console.log(res);
     setChat(() => {
       const temp = [res.message];
       return temp;
     })
-    console.log(res);
     }
     getMsg();
   }, [])
@@ -37,7 +37,7 @@ export default function ModalUnstyled() {
   const sendButtonClick = async(event) => {
     event.preventDefault();
     // insert userInput to chat just if chatGpt send response first:
-    if(userInput !== '' && (chat.length - 1 % 2 !== 0)) {
+    if(userInput !== '' && (chat.length % 2 !== 0)) {
       setChat((prev) => {
         const temp = [...prev];
         temp.push(userInput);
@@ -45,11 +45,9 @@ export default function ModalUnstyled() {
       })
       setUserInput('');
       inputRef.current.value = '';
-      console.log(chat);
       
-      // check that the chatGpt answer first
-      const objToSend = {message: chat[chat.length - 1]}
-      const response = await fetch('http://localhost:3000/', {
+      const objToSend = {message: `${chat[chat.length - 1]}. ${additionToGpt}`}
+      const response = await fetch('http://localhost:3000/sendMsgToGpt', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -58,7 +56,11 @@ export default function ModalUnstyled() {
       })
 
       const res = await response.json();
-      console.log(res);
+      setChat((prev) => {
+        const temp = [...prev];
+        temp.push(res.message); 
+        return temp;
+      })
     
     }
   }
