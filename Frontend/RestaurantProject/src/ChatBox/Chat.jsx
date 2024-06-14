@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { styled, css } from '@mui/system';
@@ -15,19 +15,56 @@ export default function ModalUnstyled() {
   const [userInput, setUserInput] = useState('');
   const inputRef = useRef(null);
 
-  const sendButtonClick = (event) => {
-    event.preventDefault();
-    setChat((prev) => {
-      const temp = [...prev];
-      temp.push(userInput);
+  useEffect(() => {
+    const getMsg = async() => {
+    const response = await fetch('http://localhost:3000/firstMsgFromGpt', {
+      method: 'GET',
+      headers: {
+     'Content-Type': 'application/json'
+      }
+    })
+    const res = await response.json();
+    console.log(res);
+    setChat(() => {
+      const temp = [res.message];
       return temp;
     })
-    setUserInput('');
-    inputRef.current.value = '';
+    console.log(res);
+    }
+    getMsg();
+  }, [])
+
+  const sendButtonClick = async(event) => {
+    event.preventDefault();
+    // insert userInput to chat just if chatGpt send response first:
+    if(userInput !== '' && (chat.length - 1 % 2 !== 0)) {
+      setChat((prev) => {
+        const temp = [...prev];
+        temp.push(userInput);
+        return temp;
+      })
+      setUserInput('');
+      inputRef.current.value = '';
+      console.log(chat);
+      
+      // check that the chatGpt answer first
+      const objToSend = {message: chat[chat.length - 1]}
+      const response = await fetch('http://localhost:3000/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(objToSend)
+      })
+
+      const res = await response.json();
+      console.log(res);
+    
+    }
   }
+  
 
   const handleChange = (event) => {
-    console.log(event.target.value);
     setUserInput(event.target.value);
   }
 
