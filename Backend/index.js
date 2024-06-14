@@ -7,7 +7,7 @@ import { orderOnlineMethod } from './orderRequests.js';
 import { checkEmptyTable, saveReservation} from './tableRequests.js';
 import { getMenuData } from './getMenuData.js';
 import { getOrdersOnline, deleteOrderByManager, getReservation, getMenu, deleteDish, changeMenu, getIngredients, changeIngredients, addIngredient } from './managerOperations.js';
-import { requestToGpt, getFirstMsgFromGpt } from './chatGptRequest.js';
+import { getFirstMsgFromGpt, sendMsgGpt } from './chatGptRequest.js';
 
 const userNameDB = 'tzurel150';
 const passwordDB = 'JQGdzI57qA9hOrYJ';
@@ -37,6 +37,7 @@ app.post('/deleteOrder', deleteOrderByManager);
 app.post('/changeMenu', changeMenu);
 app.post('/changeIngredients', changeIngredients);
 app.post('/addIngredient', addIngredient);
+app.post('/sendMsgToGpt', sendMsgGpt);
 
 //* POST for check empty table:
 app.post('/check-emptyTable', checkEmptyTable);
@@ -44,7 +45,6 @@ app.post('/sendEmail', saveReservation);
 app.post('/order-online', orderOnlineMethod);
 app.post('/login', login);
 
-// requestToGpt();
 
 app.listen(port, () => {
     console.log("Server running on port 3000.")
