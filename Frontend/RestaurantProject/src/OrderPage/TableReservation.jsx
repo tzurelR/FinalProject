@@ -133,7 +133,7 @@ export default function TableReservation() {
   return (  
     <div>
     <div className='orderTitle'>
-      <h2>Order place to Restaurant</h2>
+      <h2>Place an order</h2>
       </div>
     <div className='orderDiv' style={{ display: 'flex', flexDirection: 'row'}}>
       
