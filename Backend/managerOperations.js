@@ -102,7 +102,6 @@ const changeIngredients = async(req, res) => {
 
 const addIngredient = async(req, res) => {
     try {
-        //! find the last Ingredient
         let maxId = await ingredientDb.aggregate([
             {
                 $group: {

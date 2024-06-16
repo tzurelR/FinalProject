@@ -12,6 +12,7 @@ export default function ModalUnstyled() {
   const handleClose = () => setOpen(false);
 
   const additionToGpt = 'Give just short answers.';
+  const [index, setIndex] = useState(1);
 
   const [chat, setChat] = useState([]);
   const [userInput, setUserInput] = useState('');
@@ -37,16 +38,20 @@ export default function ModalUnstyled() {
   const sendButtonClick = async(event) => {
     event.preventDefault();
     // insert userInput to chat just if chatGpt send response first:
+    if(index < 3) {
     if(userInput !== '' && (chat.length % 2 !== 0)) {
       setChat((prev) => {
         const temp = [...prev];
         temp.push(userInput);
         return temp;
       })
+      const msg = userInput;
       setUserInput('');
       inputRef.current.value = '';
-      
-      const objToSend = {message: `${chat[chat.length - 1]}. ${additionToGpt}`}
+      setIndex(index + 1);
+      console.log(index);
+
+      const objToSend = {message: `${msg}. ${additionToGpt}`, index}
       const response = await fetch('http://localhost:3000/sendMsgToGpt', {
         method: 'POST',
         headers: {
@@ -63,6 +68,7 @@ export default function ModalUnstyled() {
       })
     
     }
+  }
   }
   
 
