@@ -36,7 +36,7 @@ export default function Title() {
           </IconButton>
           <DinnerDiningIcon/>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          LumiBite
+          Chill&Grill
           </Typography>
 
           <Button color="inherit" onClick={toggleHidden}>Menu</Button>
