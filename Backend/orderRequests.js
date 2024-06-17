@@ -105,4 +105,23 @@ const updateIngredients = async(ingredientsArr) => {
     }
 }
 
-export {orderOnlineMethod};
+const ingredientsShortage = (req, res) => {
+    try {   
+        const mailOptions = {
+            from: {
+                name: 'TzR',
+                address: "tzurel123@gmail.com" 
+            }, 
+            to: `tzurel150@gmail.com`, // restaurant manager
+            subject: "Ingredients Update in Chill&Grill", // Subject line
+            text: req.body.message,
+          }
+        sendMail(transporter, mailOptions);
+
+        res.json({message: 'The email was sent successfully.'});
+    } catch (err) {
+        res.json({message: err.message});
+    }
+}
+
+export {orderOnlineMethod, ingredientsShortage};
