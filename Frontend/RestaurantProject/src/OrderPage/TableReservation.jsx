@@ -73,9 +73,10 @@ export default function TableReservation() {
     const [tableStatus, setTableStatus] = useState('');
     const [email, setEmail] = useState('');
     const [emailInvalid, setEmailInvalid] = useState('hidden');
-
+    const [successInvite, setSuccessInvite] = useState('hidden');
 
     const menuClick = (event) => {
+      setSuccessInvite('hidden');
       if(event.target.className === 'dateBtn') {
         setChosenDate(event.target.textContent);
         toggleVisibility('date');
@@ -91,6 +92,7 @@ export default function TableReservation() {
     }
 
     const checkClick = async() => {
+      setSuccessInvite('hidden');
       const objToSend = {
         hour: chosenTime,
         date: chosenDate,
@@ -107,6 +109,8 @@ export default function TableReservation() {
       const res = await response.json();
       if(res.message === 'There is empty table') {
         setTableStatus('There is empty table, put your mail please: ')
+      } else {
+        alert('There are no empty tables available for the completed fields. Please try another date. 😢')
       }
       } else {
         alert('Please complete all required fields!');
@@ -134,7 +138,7 @@ export default function TableReservation() {
       })
 
       const res = await response.json();
-      console.log(res);
+      setSuccessInvite('');
       toggleVisibility('email');
     }
 
@@ -218,6 +222,7 @@ export default function TableReservation() {
     <Button onClick={sendClick} size="sm" style={{backgroundColor:'rgb(200, 124, 25)', width: '80px', height: '45px'}}>Send</Button> </div>: ''}
     </div>
     <p className={emailInvalid}>The email address is invalid.</p>
+    <p className={successInvite}>Your invitation has been saved successfully</p>
     </div>  
   );
 }
