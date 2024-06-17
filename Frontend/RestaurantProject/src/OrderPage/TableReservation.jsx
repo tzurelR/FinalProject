@@ -14,7 +14,7 @@ import '../App.css'
 
 export default function TableReservation() {
 
-    
+    const regularExpCheckValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const addDays = (date, days) => {
       const result = new Date(date);
       result.setDate(result.getDate() + days);
@@ -72,6 +72,7 @@ export default function TableReservation() {
     const [chosenPeople, setChosenPeople] = useState('');
     const [tableStatus, setTableStatus] = useState('');
     const [email, setEmail] = useState('');
+    const [emailInvalid, setEmailInvalid] = useState('hidden');
 
 
     const menuClick = (event) => {
@@ -95,6 +96,7 @@ export default function TableReservation() {
         date: chosenDate,
         countOfPeople: chosenPeople,
       }
+      if(chosenTime !== '' && chosenDate !== '' && chosenPeople !== '') {
       const response = await fetch('http://localhost:3000/check-emptyTable', {
         method: 'POST',
         headers: {
@@ -103,13 +105,18 @@ export default function TableReservation() {
         body: JSON.stringify(objToSend)
       })
       const res = await response.json();
-      console.log(res);
       if(res.message === 'There is empty table') {
         setTableStatus('There is empty table, put your mail please: ')
+      }
       }
     }
 
     const sendClick = async() => {
+      setEmailInvalid('hidden');
+      if(!regularExpCheckValidEmail.test(email)) {
+        setEmailInvalid('');
+        return;
+      }
       const objToSend = {
         hour: chosenTime,
         date: chosenDate,
@@ -208,6 +215,7 @@ export default function TableReservation() {
     {tableStatus !== '' ? <div><Input color="warning" placeholder="Email" onChange={menuClick} size="sm" height='20px' width="120px"/>
     <Button onClick={sendClick} size="sm" style={{backgroundColor:'rgb(200, 124, 25)', width: '80px', height: '45px'}}>Send</Button> </div>: ''}
     </div>
+    <p className={emailInvalid}>The email address is invalid.</p>
     </div>  
   );
 }
