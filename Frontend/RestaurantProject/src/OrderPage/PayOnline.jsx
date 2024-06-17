@@ -73,7 +73,8 @@ export default function PayOnline() {
             email,
             cost
         });
-        if(!regularExpCheckValidEmail.test(objToSend.email)) {
+
+        if(!regularExpCheckValidEmail.test(email)) {
             return alert('The email address is invalid')
         }
         const response = await fetch('http://localhost:3000/order-online', {

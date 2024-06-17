@@ -1,6 +1,7 @@
 import { orderOnlineDb } from './DataBase/orderOnlineDB.js';
 import { menuDb } from './DataBase/MenuDB.js';
 import { ingredientDb } from './DataBase/IngredientsDB.js';
+import { sendMail, transporter } from './sendMail.js';
 
 const orderOnlineMethod = async(req, res) => {
     try{
@@ -72,6 +73,17 @@ const orderOnlineMethod = async(req, res) => {
         statusOfOrder: 'preparing',
         email: details[0]['email']
     });
+
+    const mailOptions = {
+        from: {
+            name: 'TzR',
+            address: "tzurel123@gmail.com" 
+        }, 
+        to: `${details[0]['email']}`, // list of receivers
+        subject: "Order Online in Chill&Grill", // Subject line
+        text: `We are thrilled to confirm that your online order is now being processed.`,
+      }
+    sendMail(transporter, mailOptions);
 
 
     res.status(200).json({message: '/order-online: the data saved in db'});
