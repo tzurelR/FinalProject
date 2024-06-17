@@ -6,6 +6,7 @@ import Input from '@mui/joy/Input';
 import { useState } from 'react';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 import { useNavigate } from 'react-router-dom';
 import Otp from './Otp.jsx';
 import './App.css'
@@ -66,7 +67,7 @@ const Login = () => {
         <div style={{marginTop: '20px'}}>
         <FormControl>
         <FormLabel style={{color: '#1CCBFF', fontSize: '20px'}}>Password:</FormLabel>
-        <Input placeholder="Password*" onChange={handleChange}/>
+        <Input placeholder="Password*" onChange={handleChange} type='password'/>
         </FormControl>
         </div>
         <Button style={{marginTop: '20px'}} variant="contained" onClick={login}>SIGN IN</Button>
