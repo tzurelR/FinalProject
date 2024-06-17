@@ -108,6 +108,8 @@ export default function TableReservation() {
       if(res.message === 'There is empty table') {
         setTableStatus('There is empty table, put your mail please: ')
       }
+      } else {
+        alert('Please complete all required fields!');
       }
     }
 
