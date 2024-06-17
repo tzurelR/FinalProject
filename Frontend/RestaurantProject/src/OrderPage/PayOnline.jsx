@@ -13,6 +13,7 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 
 export default function PayOnline() {
 
+    const regularExpCheckValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const location = useLocation();
     const paramValueFromOrderOnline = location.state;
 
@@ -72,7 +73,9 @@ export default function PayOnline() {
             email,
             cost
         });
-
+        if(!regularExpCheckValidEmail.test(objToSend.email)) {
+            return alert('The email address is invalid')
+        }
         const response = await fetch('http://localhost:3000/order-online', {
             method: 'POST',
             headers: {
@@ -134,8 +137,8 @@ export default function PayOnline() {
         </div>
 
         <div style={{marginTop: '30px'}}>
-            <Button variant="outlined" style={{color: 'whitesmoke'}} onClick={payClick}>PAY</Button>
-            <h3 style={{color: '#2EC1FF'}}>{messageToClient}</h3>
+            {cost !== 0 ? <div><Button variant="outlined" style={{color: 'whitesmoke'}} onClick={payClick}>PAY</Button>
+            <h3 style={{color: '#2EC1FF'}}>{messageToClient}</h3></div> : <p style={{color: 'red'}}>The cost is 0$. Please choose your dishes.</p>}
         </div>
     </div>
   );
