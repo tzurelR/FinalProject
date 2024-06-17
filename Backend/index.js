@@ -3,7 +3,7 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import { login } from './login.js';
 import {managerDb} from './DataBase/ManagerDB.js'
-import { orderOnlineMethod } from './orderRequests.js';
+import { orderOnlineMethod, ingredientsShortage } from './orderRequests.js';
 import { checkEmptyTable, saveReservation} from './tableRequests.js';
 import { getMenuData } from './getMenuData.js';
 import { getOrdersOnline, deleteOrderByManager, getReservation, getMenu, deleteDish, changeMenu, getIngredients, changeIngredients, addIngredient } from './managerOperations.js';
@@ -43,6 +43,7 @@ app.post('/sendMsgToGpt', sendMsgGpt);
 app.post('/check-emptyTable', checkEmptyTable);
 app.post('/sendEmail', saveReservation);
 app.post('/order-online', orderOnlineMethod);
+app.post('/order-online/ingredients-shortage', ingredientsShortage)
 app.post('/login', login);
 
 
