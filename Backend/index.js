@@ -16,9 +16,6 @@ const port = 3000;
 mongoose.connect(DB_URL, {
     dbName: 'final_project'}).then(() => console.log("DB connection succesful!"));
 
-app.get('/order', (req, res) => {
-    res.send({'hey': 'tempo'})
-})
 app.get('/getMenu', getMenuData);
 
 //* requests for Manager:
