@@ -18,7 +18,6 @@ mongoose.connect(DB_URL, {
 
 app.get('/getMenu', getMenuData);
 
-//* requests for Manager:
 app.get('/fetchOrders', getOrdersOnline);
 app.get('/fetchReservation', getReservation);
 app.get('/fetchMenu', getMenu);
@@ -31,7 +30,6 @@ app.post('/changeIngredients', changeIngredients);
 app.post('/addIngredient', addIngredient);
 app.post('/sendMsgToGpt', sendMsgGpt);
 
-//* POST for check empty table:
 app.post('/check-emptyTable', checkEmptyTable);
 app.post('/sendEmail', saveReservation);
 app.post('/order-online', orderOnlineMethod);
