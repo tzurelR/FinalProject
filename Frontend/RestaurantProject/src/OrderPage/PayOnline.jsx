@@ -89,7 +89,6 @@ export default function PayOnline() {
             setMessageToClient('Your invitation sent to restaurant!');
         } else {
             setMessageToClient('error, your invitation illegal');
-            //! HERE add post to index.js that send mail to the manager on ingredients lack!
             const obj = {message: 'Dear manager, there is a significant shortage of ingredients. Please update the ingredient list in the App accordingly'}
             const errResponse = await fetch('http://localhost:3000/order-online/ingredients-shortage', {
                 method: 'POST',
