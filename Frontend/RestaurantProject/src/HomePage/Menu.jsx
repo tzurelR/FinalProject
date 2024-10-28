@@ -13,7 +13,7 @@ const Menu = (props) => {
   const [data, setData] = useState(null);
   useEffect(() => {
     const menuData = async() => {
-      try{
+      try {
       const response = await fetch('http://localhost:3000/getMenu', {
         method: 'GET',
         headers: {

@@ -2,9 +2,9 @@ import { config } from "dotenv";
 import OpenAI from "openai/index.mjs";
 config();
 
-const firstMsgToGPT = 'I have a website for my restaurant. in this website I want that you will suggest to the client dishes from the menu. this is the menu: israeli salad, arais, grilled pullet, hamburger, cola, beer. please give 1 question. give it short with no openning.';
-const secondMsgToGPT = 'give one more question.'
-const thirdMsgToGPT = 'Now, please suggest 2 dishes by the answers of the user.'
+    const firstMsgToGPT = 'I have a website for my restaurant. in this website I want that you will suggest to the client dishes from the menu. this is the menu: israeli salad, arais, grilled pullet, hamburger, cola, beer. please give 1 question. give it short with no openning.';
+    const secondMsgToGPT = 'give one more question.'
+    const thirdMsgToGPT = 'Now, please suggest 2 dishes by the answers of the user.'
 
 
 const msgHistory = [{role: 'user', content: firstMsgToGPT}];
