@@ -2,16 +2,11 @@ import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import { login } from './login.js';
-import {managerDb} from './DataBase/ManagerDB.js'
 import { orderOnlineMethod, ingredientsShortage } from './orderRequests.js';
 import { checkEmptyTable, saveReservation} from './tableRequests.js';
 import { getMenuData } from './getMenuData.js';
 import { getOrdersOnline, deleteOrderByManager, getReservation, getMenu, deleteDish, changeMenu, getIngredients, changeIngredients, addIngredient } from './managerOperations.js';
 import { getFirstMsgFromGpt, sendMsgGpt } from './chatGptRequest.js';
-
-const userNameDB = 'tzurel150';
-const passwordDB = 'JQGdzI57qA9hOrYJ';
-const DB_URL = `mongodb+srv://tzurel150:${passwordDB}@finalproject.dtuuckj.mongodb.net/?retryWrites=true&w=majority&appName=FinalProject`;
 
 const app = express();
 app.use(express.json());
