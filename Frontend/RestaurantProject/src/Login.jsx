@@ -33,7 +33,6 @@ const Login = () => {
         });
         const res = await response.json();
         if(response.status === 200) {
-            //! here need to navigate to the new page!
             navigate('/login/managerPage');
         } else {
             setIsActive('');
