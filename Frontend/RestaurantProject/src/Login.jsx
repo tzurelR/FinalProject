@@ -8,7 +8,6 @@ import LockOpenIcon from '@mui/icons-material/LockOpen';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { useNavigate } from 'react-router-dom';
-import Otp from './Otp.jsx';
 import './App.css'
 
 const Login = () => {
@@ -17,7 +16,6 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isActive, setIsActive] = useState('hidden');
-    const [otpActive, setOtpAvtive] = useState('hidden');
     const regularExpCheckValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     const login = async() => {
@@ -74,13 +72,7 @@ const Login = () => {
         <div>
             <p className={isActive} style={{color: '#FF2121'}}>Your Email or Password invalid</p>
         </div>
-        <div style={{marginTop: '50px'}}>
-            <Button onClick={()=> otpActive === '' ? setOtpAvtive('hidden') : setOtpAvtive('')}>Forgot password?</Button>
-        </div>
-        <div className={otpActive} style={{position: 'absolute', marginTop: '10px'}}>
-            <p>Please enter the number sent to the manager's email:</p>
-            <Otp/>
-        </div>
+    
     </div>
     )
 }
