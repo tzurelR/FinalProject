@@ -10,9 +10,6 @@ import Paper from '@mui/material/Paper';
 
 
 export default function MenuTable(props) {
-    
-    const [dishNameChange, setDishNameChange] = useState('');
-    const [priceChange, setPriceChange] = useState('');
 
     const handleInputChange = (event) => {
         if(event.target.className === 'dishInput') {
