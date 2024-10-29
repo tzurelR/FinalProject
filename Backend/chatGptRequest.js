@@ -16,18 +16,6 @@ const openai = new OpenAI({
     apiKey: apiKey
 });
 
-const requestToGpt = async(req, res) => {
-    
-    const completion = await openai.chat.completions.create({
-        messages: [{ role: "user", content: 'firstMsgToGPT' },
-            { role: "user", content: 'light' },
-            { role: "assistant", content: 'GPT: Israeli Salad, Grilled Pullet' },
-            { role: "user", content: 'maybe another food?' },
-        ],
-        model: "gpt-4o",
-      });
-}
-
 const getFirstMsgFromGpt = async(req, res) => {
     try {
         const completion = await openai.chat.completions.create({
