@@ -73,7 +73,6 @@ export default function OrderOnline() {
   const goToPay = () => {
     const countObj = {}
     menu.data.map((dish, index) => {
-      const varName = changeDishNameToVar(sourceDishNames[index]);
       countObj[changeDishNameToVar(dish.dishName)] = [sourceDishNames[index], counts[`${changeDishNameToVar(sourceDishNames[index])}Count`], dish.cost]
     })
     console.log(countObj);
